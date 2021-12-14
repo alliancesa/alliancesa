@@ -10,13 +10,13 @@ module.exports = function(passport){
 
     passport.use(new localStrategy({usernameField: 'Email', passwordField: "Senha"}, (email, senha, done) => {
         
-        Post.Usuarios.findOne({ where: {Email: email} }).then((usuario) => { 
+        Post.Usuarios.findOne({ where: {EMAIL: email} }).then((usuario) => { 
             
-            if(usuario.Email != email){
+            if(usuario.EMAIL != email){
                 return done(null, false, {message: "Conta não encontrada"})
             }
 
-            bcrypt.compare(senha, usuario.Senha, (erro, ok) => {
+            bcrypt.compare(senha, usuario.SENHA, (erro, ok) => {
                 if(ok){
                     return done(null, usuario)
                 } else {
@@ -34,6 +34,7 @@ module.exports = function(passport){
 
     passport.deserializeUser((id, done) => {
         Post.Usuarios.findByPk(id).then(usuario => {
+/*
             var cQry =  ""
 
             cQry +=  " SELECT                                                                   "
@@ -91,6 +92,8 @@ module.exports = function(passport){
             }).catch((err) => {
                 done(null, err)
             })
+*/
+            done(null, usuario)
         })
     })
 }

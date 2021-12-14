@@ -2,6 +2,12 @@
 module.exports = {
     AuthUsuarios: function(req, res, next) {
         if(req.isAuthenticated()){
+            return next();
+        }
+        req.flash("error_msg", "Necessário um usuário conectado para acessar essa sessão")
+        res.redirect("/Usuarios/Login")
+
+    /*            
             res.locals.UserEPR  = req.user.UserERP    
 
             if(req.user.VENDEDOR == '' || req.user.VENDEDOR == null){ 
@@ -297,6 +303,7 @@ module.exports = {
         }
         req.flash("error_msg", "Necessário um usuário conectado para acessar essa sessão")
         res.redirect("/Usuarios/Login")
+*/        
     }
 }
 

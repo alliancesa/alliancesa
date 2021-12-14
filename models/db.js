@@ -32,6 +32,8 @@ var DbName = 'heroku_766079f51950491';
 var sequelize = new Sequelize(DbName, userName, password, {
     host: hostName
     ,dialect: 'mysql'    
+    
+    ,logging: false // disable logging; default: console.log
 })
 
 module.exports = {
