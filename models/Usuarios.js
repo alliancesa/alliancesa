@@ -50,8 +50,8 @@ const Esqueci = db.sequelize.define('ESQUECISENHAS',{
   }
 })
 
-Usuarios.sync({force: true})
-Esqueci.sync({force: true})
+//Usuarios.sync({force: true})
+//Esqueci.sync({force: true})
 
 module.exports = {
     Usuarios: Usuarios
