@@ -218,6 +218,7 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
                         ,FONE    :  req.body.fone
                         ,REGRA2  :  nRegra2
                         ,CHAVE   :  id
+                        ,ADMIN   :  2
                         ,STATUS  :  2
                     })
 
@@ -582,14 +583,14 @@ module.exports = router;
 
 
 function EnviaEmail(params, id2) {
-    chtml =  ' <div>                                                                                                                                            '
-    chtml += '   <h2>Bem Vindo(a) ao Portal AllianceSA </h3>                                                                                                    '
-    chtml += '   <pre>Recebemos seu pedido de registro de conta, favor confirmar seu e-mail. </pre>                                                             '
-    chtml += '   <pre><strong>Endereço: </strong><a href="https://alliancesa.herokuapp.com/">https://alliancesa.herokuapp.com/</a></pre>                        '
+    chtml =  ' <div>                                                                                                                                                '
+    chtml += '   <h2>Bem Vindo(a) ao Portal AllianceSA </h3>                                                                                                        '
+    chtml += '   <pre>Recebemos seu pedido de registro de conta, favor confirmar seu e-mail. </pre>                                                                 '
+    chtml += '   <pre><strong>Endereço: </strong><a href="https://alliancesa.herokuapp.com/">https://alliancesa.herokuapp.com/</a></pre>                            '
     //chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="http://localhost:8383/Usuarios/ValidaEmail/' + id2 + '" a>aqui</strong></pre>   '
     //chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="http://177.220.138.5:9393/Usuarios/ValidaEmail/' + id2 + '" a>aqui</strong></pre>   '
     chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="https://alliancesa.herokuapp.com/Usuarios/ValidaEmail/' + id2 + '" a>aqui</a></strong></pre>    '
-    chtml += ' </div>                                                                                                                                           '
+    chtml += ' </div>                                                                                                                                               '
 
     const mailOptions = {
         from: "alliancesa34@gmail.com"
@@ -610,22 +611,22 @@ function EnviaEmail(params, id2) {
 }
 
 function EnviaAdmin(params, id2) {
-    chtml =  ' <div>                                                                                                                                '
-    chtml += '   <h2>Novo Cadastro Portal AllianceSA </h3>                                                                                          '
-    chtml += '   <pre>Novo cadatro realizado aguarado aprovação....... bla bla bla bla. </pre>                                                      '
-    chtml += '   <pre></pre>                                                                                                                        '
-    chtml += '   <pre></pre>                                                                                                                        '
-    chtml += '   <pre><strong>E-Mail:  </strong> ' + params.EMAIL   + '</pre>                                                                       '
-    chtml += '   <pre><strong>DISCORD: </strong> ' + params.DISCORD + '</pre>                                                                       '
-    chtml += '   <pre><strong>DISCORD: </strong> ' + params.FONE + '</pre>                                                                          '
-    chtml += '   <pre></pre>                                                                                                                        '
-    chtml += '   <pre>Cliqui <a href="http://177.220.138.5:9393/Usuarios/APROVCAD/' + id2 + '" a>aqui</a></strong>para liberar o cadastro</pre>     '
-    chtml += ' </div>                                                                                                                               '
+    chtml =  ' <div>                                                                                                                                        '
+    chtml += '   <h2>Novo Cadastro Portal AllianceSA </h3>                                                                                                  '
+    chtml += '   <pre>Novo cadatro realizado aguarado aprovação....... bla bla bla bla. </pre>                                                              '
+    chtml += '   <pre></pre>                                                                                                                                '
+    chtml += '   <pre></pre>                                                                                                                                '
+    chtml += '   <pre><strong>E-Mail:  </strong> ' + params.EMAIL   + '</pre>                                                                               '
+    chtml += '   <pre><strong>DISCORD: </strong> ' + params.DISCORD + '</pre>                                                                               '
+    chtml += '   <pre><strong>DISCORD: </strong> ' + params.FONE + '</pre>                                                                                  '
+    chtml += '   <pre></pre>                                                                                                                                '
+    chtml += '   <pre>Clique <a href="https://alliancesa.herokuapp.com/Usuarios/APROVCAD/' + id2 + '" a>aqui</a></strong> para liberar o cadastro</pre>     '
+    chtml += ' </div>                                                                                                                                       '
 
     const mailOptions = {
         from: "alliancesa34@gmail.com"
         //,to:  "'" + params.email + "'"
-        ,bcc: 'tdrgoblin@gmail.com;tiagodalua@gmail.com'
+        ,bcc: 'tdrgoblin@gmail.com ' //;tiagodalua@gmail.com'
         ,subject: 'Portal AllianceSA - Novo Cadastro'
         //text: 'Bem fácil, não? ;)'
         ,html: chtml
@@ -656,7 +657,7 @@ function EnviaCadOK(params, cSenha) {
     const mailOptions = {
         from: "alliancesa34@gmail.com"
         //,to:  "'" + params.email + "'"
-        ,bcc: 'tdrgoblin@gmail.com;tiagodalua@gmail.com'
+        ,bcc: 'tdrgoblin@gmail.com ' //;tiagodalua@gmail.com'
         ,subject: 'Portal AllianceSA - Cadastro Liberado'
         //text: 'Bem fácil, não? ;)'
         ,html: chtml
@@ -676,18 +677,18 @@ function EnviaCadOK(params, cSenha) {
 function EnviaEmailEsqueci(params) {
 
     chtml =  ' <div>                                                                                 '
-    chtml += '   <h2>Portal Procópio Industria e Comércio LTDA</h3>                                                            '
+    chtml += '   <h2>Portal AllianceSA</h3>                                                            '
     chtml += '   <pre>Foi realizado uma solicitação de redefinição de senha. </pre>                  '
-    chtml += '   <pre>Clique <strong><a href="http://192.168.20.7/Usuarios/Esqueci/' + params.CHAVE + '">aqui</a></strong> para redifinir a nova senha</pre> '
+    chtml += '   <pre>Clique <strong><a href="https://alliancesa.herokuapp.com/Usuarios/Esqueci/' + params.CHAVE + '">aqui</a></strong> para redifinir a nova senha</pre> '
     chtml += '   <pre><strong>E-Mail: </strong> ' + params.EMAIL + '</pre>                           '
     chtml += '   <pre>Caso não reconheça essa solicitação favor desconsiderar esse e-mail. </pre>    '
     chtml += ' </div>                                                                                '
 
     const mailOptions = {
-        from: 'sistema@procopio.com.br'
+        from: "alliancesa34@gmail.com"
         ,to: "'" + params.EMAIL + "'"
-        ,bcc: 'ronaldo@procopio.com.br'
-        ,subject: 'Portal Procópio Industria e Comércio LTDA - Redefinição de senha'
+        ,bcc: 'tdrgoblin@gmail.com ' //;tiagodalua@gmail.com'
+        ,subject: 'Portal AllianceSA - Redefinição de senha'
         //text: 'Bem fácil, não? ;)'
         ,html: chtml
       };
@@ -704,18 +705,18 @@ function EnviaEmailEsqueci(params) {
 function EnviaEmailAlterada(params, id) {
 
     chtml =  ' <div>                                                                                                             '
-    chtml += '   <h2>' + params[0].Nome + ' a senha do Portal Procópio Industria e Comércio LTDA foi redefinida com sucesso.</h3>                             '
+    chtml += '   <h2>' + params[0].Nome + ' a senha do Portal AllianceSA foi redefinida com sucesso.</h3>                             '
     chtml += '   <pre>Para acessar o portal você deverá utilizar as seguintes credenciais: </pre>                                '
-    chtml += '   <pre><strong>Endereço: </strong><a href="http://192.168.20.7">http://192.168.20.7</a></pre>       '
+    chtml += '   <pre><strong>Endereço: </strong><a href="https://alliancesa.herokuapp.com">https://alliancesa.herokuapp.com</a></pre>       '
     chtml += '   <pre><strong>Usuário: </strong>' + params[0].Email + '</pre>                                                       '
     chtml += '   <pre><strong>Senha: </strong>' + id + '</pre>                                                         '
     chtml += ' </div>                                                                                                            '    
 
     const mailOptions = {
-        from: 'sistema@procopio.com.br'
+        from: "alliancesa34@gmail.com"
         ,to: "'" + params[0].Email + "'"
-        ,bcc: 'ronaldo@procopio.com.br'
-        ,subject: 'Portal Procópio Industria e Comércio LTDA - Senha Alterada'
+        ,bcc: 'tdrgoblin@gmail.com ' //;tiagodalua@gmail.com'
+        ,subject: 'Portal AllianceSA - Senha Alterada'
         //text: 'Bem fácil, não? ;)'
         ,html: chtml
       };
