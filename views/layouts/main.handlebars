@@ -25,6 +25,7 @@
             <script type="text/javascript" src="/js/default.js"></script>
             
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            
             <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
             <!-- Exportal Exel -->
@@ -34,7 +35,7 @@
             <link href="/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
 
             <script>
-
+                google.charts.load("current", {packages:['corechart', 'bar', 'table', 'controls', 'line' ],'language':'pt-BR'}); 
             </script>
         </head>
         
@@ -91,10 +92,14 @@
                                 <span class="toggle-icon"><i class="icon-menu"></i></span>
                             </div>
                         </div>
-
                         <div class="header-right">
                             <ul class="clearfix">
-                                <li class="icons dropdown d-none d-md-flex" id="gEmpresas"></li>
+                                
+                                <li class="icons dropdown d-none d-md-flex" >
+                                    {{#if aLogin}}
+                                        <label><strong>{{aLogin}}</strong></label>
+                                    {{/if}}
+                                </li>
                                 <li class="icons dropdown">
                                     <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                         <span class="activity active"></span>

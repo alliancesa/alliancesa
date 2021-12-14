@@ -1,0 +1,221 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Personagens</h4>
+            <p class="text-muted"><code>Cadastre aqui todos os seus Personagens</code>
+            </p>
+            <div id="personagens" class="accordion">
+                <div id="dTabela"></div>
+            </div>
+        </div>
+        <pre></pre>
+
+        <form action="" method="post">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-2"><b>Tipo Conta</b></div>
+                    <div class="col-1">
+                        <label class="css-control css-control-primary css-checkbox" for="_1">
+                            <input class="form-check-input" type="radio" id="_1" name="tipo" checked> 
+                            <pre> 1ª</pre>
+                        </label>   
+                    </div>
+                    <div class="col-1">
+                        <label class="css-control css-control-primary css-checkbox" for="_2">
+                            <input class="form-check-input" type="radio" id="_2" name="tipo"> 
+                            <pre> 2ª</pre>
+                        </label> 
+                    </div>
+                    <div class="col-1">
+                        <label class="css-control css-control-primary css-checkbox" for="_3">
+                            <input class="form-check-input" type="radio" id="_3" name="tipo"> 
+                            <pre> 3ª</pre>
+                        </label> 
+                    </div>
+                    <div class="col-1">
+                        <label class="css-control css-control-primary css-checkbox" for="_4">
+                            <input class="form-check-input" type="radio" id="_4" name="tipo"> 
+                            <pre> 4ª</pre>
+                        </label> 
+                    </div>
+                    <div class="col-1">
+                        <label class="css-control css-control-primary css-checkbox" for="_5">
+                            <input class="form-check-input" type="radio" id="_5" name="tipo"> 
+                            <pre> 5ª</pre>
+                        </label> 
+                    </div>
+                    <div class="col-1">
+                        <label class="css-control css-control-primary css-checkbox" for="_6">
+                            <input class="form-check-input" type="radio" id="_6" name="tipo"> 
+                            <pre> 6ª</pre>
+                        </label> 
+                    </div>
+                </div>
+                <pre></pre>
+                <div class="row">
+                    <div class="col-2">     
+                        <label for="classe"><b>Clan</b></label>
+                    </div>
+                    <div class="col-3 form-group">
+                        <select  name="clan" class="form-control" required>
+                            <option></option>
+                            
+                            {{#each aClans}}
+                                <option value="{{ID}}">{{NOME}}</option>
+                            {{/each}}
+                        </select>
+                    </div>         
+                </div>      
+                
+                <div class="row">
+                    <div class="col-2">     
+                        <label for="nick"><b>Nick</b></label>
+                    </div>
+                    <div class="col-3">     
+                        <input type="text" name="nick" class="form-control" required>
+                    </div>
+                </div>
+                <pre></pre>
+                <div class="row">
+                    <div class="col-2">     
+                        <label for="classe"><b>Classe</b></label>
+                    </div>
+                    <div class="col-3 form-group">
+                        <select  name="classe" class="form-control" required>
+                            <option></option>
+                            
+                            {{#each aClasses}}
+                                <option value="{{ID}}">{{NOME}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2">     
+                        <label for="nivel"><b>NÍVEL (LEVEL)</b></label>
+                    </div>
+                    <div class="col-3">     
+                        <input type="text" id="nivel" name="nivel" class="form-control" required>
+                    </div>
+                </div>
+                <pre></pre>
+
+                <div class="row">
+                    <div class="col-2">     
+                        <label for="poder"><b>PODER</b></label>
+                    </div>
+                    <div class="col-3">     
+                        <input type="text" id="poder" name="poder" class="form-control" required  placeholder="Ex.: 72.652  = 72">
+                    </div>
+                </div>
+
+                </br>
+                <p></p>
+                <div align="right">
+                    <button type="submit" class="btn btn-success">Atualizar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+  
+    google.charts.setOnLoadCallback(CarregaTabela); 
+    
+    function CarregaTabela() {
+        aDados = new google.visualization.DataTable();
+        
+        aDados.addColumn('string', 'Nick');         //00
+        aDados.addColumn('string', "Classe");       //01
+        aDados.addColumn('number', "Nível");        //02     
+        aDados.addColumn('number', "Poder");        //03
+
+        var cssClassNames = {
+            'headerRow': 'default-font bold-font a center-text fundo-table-background-padrao '
+            ,'tableRow': 'false'
+            ,'oddTableRow': ''
+            //,'selectedTableRow': 'orange-background large-font'
+            ,'hoverTableRow': 'false'
+            ,'headerCell': ''
+            ,'tableCell': 'default-font'
+            ,'rowNumberCell': 'underline-blue-font'
+        }
+
+        options  = {
+            showRowNumber: true
+            ,width: '100%'
+            //,height: '100%'
+            ,allowHtml: true
+            ,'cssClassNames': cssClassNames
+        }
+
+        cDados = new google.visualization.Table(document.getElementById('dTabela'));
+        cDados.draw(aDados, options); 
+    }
+
+
+    function CarregaDados() {
+         // Carrega DIV de carregamento
+        $('#preloader').fadeIn(500);
+        
+        Loading(Carregando, 10)
+
+        BuscaDados('/ERP/Comercial/Relatorios/BuscaNotas', [
+            1
+            ,_cEmpresas.name
+            ,Data.value
+        ])
+        
+        Loading(Carregando, 20)
+        
+        //Carrega API
+        request.done(dados => {  
+            Loading(Carregando, 30)
+            
+            if(aDados.getNumberOfRows() > 0)
+                aDados.removeRows(0, aDados.getNumberOfRows())
+        })
+
+        //Processa Dados
+        request.then(dados => {  
+            aDados.addRows(dados.length)
+
+            Loading(Carregando, 40)
+            
+            for(i=0; i < dados.length; i++) {
+                aDados.setCell(i,  0, dados[i].DATA)
+                aDados.setCell(i,  1, dados[i].NOTA + '/' + dados[i].NOTA)
+                aDados.setCell(i,  2, dados[i].COD_CLIENTE)
+            }
+
+            cDados.draw(aDados, options); 
+
+            Loading(Carregando, 100)
+            
+            $('.google-visualization-table-table').DataTable({
+                "paging":   false
+                ,"info":    false
+                ,"destroy": true
+                //,"searching": false
+                ,"language": {
+                    "lengthMenu": "Visualizações de _MENU_ registros por página",
+                    "zeroRecords": "Nada encontrado",
+                    "info": " Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registro disponível",
+                    "infoFiltered": "(filtrado de _MAX_ registros no total)"
+                }
+            });
+
+            $('#preloader').fadeOut(500);
+        })
+    }
+
+
+    setTimeout(function() {
+    //    CarregaDados()
+    }, 1000)
+
+</script>
