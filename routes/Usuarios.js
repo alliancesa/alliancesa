@@ -285,7 +285,7 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
         res.render("Usuarios/APROVCAD")
     })
 
-    
+
     router.get("/APROVCAD/:chave",  (req, res) => {
         Post.Usuarios.findAll({ where: { CHAVE2: req.params.chave } } ).then((dados) => {   
             Post.Usuarios.findAll({ where: { Email: dados[0].EMAIL } } ).then((dados2) => {                
@@ -588,7 +588,7 @@ function EnviaEmail(params, id2) {
     chtml += '   <pre><strong>Endereço: </strong><a href="https://alliancesa.herokuapp.com/">https://alliancesa.herokuapp.com/</a></pre>                        '
     //chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="http://localhost:8383/Usuarios/ValidaEmail/' + id2 + '" a>aqui</strong></pre>   '
     //chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="http://177.220.138.5:9393/Usuarios/ValidaEmail/' + id2 + '" a>aqui</strong></pre>   '
-    chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="https://alliancesa.herokuapp.com/Usuarios/ValidaEmail/' + id2 + '" a>aqui</strong></pre>    '
+    chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="https://alliancesa.herokuapp.com/Usuarios/ValidaEmail/' + id2 + '" a>aqui</a></strong></pre>    '
     chtml += ' </div>                                                                                                                                           '
 
     const mailOptions = {
@@ -618,9 +618,8 @@ function EnviaAdmin(params, id2) {
     chtml += '   <pre><strong>E-Mail:  </strong> ' + params.EMAIL   + '</pre>                                                                       '
     chtml += '   <pre><strong>DISCORD: </strong> ' + params.DISCORD + '</pre>                                                                       '
     chtml += '   <pre><strong>DISCORD: </strong> ' + params.FONE + '</pre>                                                                          '
-    //chtml += '   <pre><strong><a href="http://177.220.138.5:9393/Usuarios/ValidaEmail/' + id2 + '" a>Confirmar aqui</strong></pre>          '
     chtml += '   <pre></pre>                                                                                                                        '
-    chtml += '   <pre>Cliqui aqui para liberar o cadastro</strong></pre>                                                                            '
+    chtml += '   <pre>Cliqui <a href="http://177.220.138.5:9393/Usuarios/APROVCAD/' + id2 + '" a>aqui</a></strong>para liberar o cadastro</pre>     '
     chtml += ' </div>                                                                                                                               '
 
     const mailOptions = {
