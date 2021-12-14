@@ -27,6 +27,15 @@ const Usuarios = db.sequelize.define('USUARIOS', {
         type: db.Sequelize.STRING
         ,require: true
     }
+    ,CHAVE2: {
+        type: db.Sequelize.STRING
+        ,require: true
+    }
+    ,ADMIN: {
+        type: db.Sequelize.INTEGER
+        ,required: true
+        ,default: 2
+    }
     ,STATUS: {
         type: db.Sequelize.INTEGER
         ,required: true

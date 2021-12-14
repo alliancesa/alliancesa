@@ -205,9 +205,7 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
                     req.flash("error_msg", "Já existe um conta com esse e-mail")
                     res.redirect("Registro")
                 } else {
-                    var id  = crypto.randomBytes(3).toString('hex');
-                    var id2 = crypto.randomBytes(20).toString('hex');
-                    
+                    var id = crypto.randomBytes(20).toString('hex');                    
                     var nRegra2 = 2
 
                     if(req.body.regra2 == "on"){
@@ -218,31 +216,19 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
                         DISCORD :  req.body.discord
                         ,EMAIL   :  req.body.email
                         ,FONE    :  req.body.fone
-                        ,SENHA   :  id
                         ,REGRA2  :  nRegra2
-                        ,CHAVE   :  id2
+                        ,CHAVE   :  id
                         ,STATUS  :  2
                     })
 
-                    bcrypt.genSalt(10, (erro, salt) => {
-                        bcrypt.hash(NovoUsuario.SENHA, salt, (erro, hash) => {
-                            if(erro){
-                                req.flash("erros_msg", "Houve um erro durante o salvamento do usuário")
-                                res.redirect("Registrar")
-                            }
+                    NovoUsuario.save().then(() => {
+                        req.flash("success_msg", "Você receberá um e-mail para validação de e-mail!")
+                        res.redirect("Registrar")
+                        EnviaEmail(req.body, id)
 
-                            NovoUsuario.SENHA = hash
-                            NovoUsuario.save().then(() => {
-                                req.flash("success_msg", "Você receberá um e-mail para validação de e-mail!")
-                                res.redirect("Registrar")
-                                EnviaEmail(req.body, id2)
-
-                            }).catch((err) => {
-                                req.flash("error_msg", "Houve um erro ao criar o novo usuário, tente novamente")
-                                res.redirect("Registrar")
-                            })
-
-                        })
+                    }).catch((err) => {
+                        req.flash("error_msg", "Houve um erro ao criar o novo usuário, tente novamente")
+                        res.redirect("Registrar")
                     })
                 }
             }).catch((err) => {
@@ -256,20 +242,23 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
         res.render("Usuarios/ValidaEmail")
     })
 
-
+    // Função para validação de email do usuário
     router.get("/ValidaEmail/:chave",  (req, res) => {
         Post.Usuarios.findAll({ where: { CHAVE: req.params.chave } } ).then((dados) => {   
             Post.Usuarios.findAll({ where: { Email: dados[0].EMAIL } } ).then((dados2) => {                
                 if(dados.length > 0 && dados2.length > 0 && dados[0].STATUS == '2') {                
+                    var id = crypto.randomBytes(20).toString('hex')
+                    
                     const AlteraChave = ({
-                        CHAVE: ""
+                        CHAVE   :  ""
+                        ,CHAVE2 :  id
                     })
         
                     Post.Usuarios.update(AlteraChave, { where: { id: dados2[0].id } }).then(function() {
-                        EnviaAdmin(dados2[0]) 
+                        EnviaAdmin(dados2[0], id) 
 
                         res.render("Usuarios/ValidaEmail",{
-                            aEsqueciOK: "OK"
+                            aValidOK: "OK"
                         })
                     
                     }).catch(function (erro) {
@@ -278,7 +267,62 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
                     })
                 } else {
                     res.render("Usuarios/ValidaEmail",{
-                        aEsqueciNC: "OK"
+                        aValidNC: "OK"
+                        ,aRotina
+                    })
+                }
+            })
+        }).catch(function (erro) {
+            res.render("Usuarios/ValidaEmail",{
+                aValidNC: "OK"
+            })
+        })
+    })
+
+
+    // Função para liberação de cadastro por e-mail
+    router.get("/APROVCAD",  (req, res) => {
+        res.render("Usuarios/APROVCAD")
+    })
+
+    
+    router.get("/APROVCAD/:chave",  (req, res) => {
+        Post.Usuarios.findAll({ where: { CHAVE2: req.params.chave } } ).then((dados) => {   
+            Post.Usuarios.findAll({ where: { Email: dados[0].EMAIL } } ).then((dados2) => {                
+                if(dados.length > 0 && dados2.length > 0 && dados[0].STATUS == '2') {    
+                    var id  = crypto.randomBytes(3).toString('hex');
+
+                    const AlteraChave = ({
+                        CHAVE2  : ""
+                        ,STATUS : 1
+                        ,SENHA  : id
+                    })
+        
+                    bcrypt.genSalt(10, (erro, salt) => {
+                        bcrypt.hash(AlteraChave.SENHA, salt, (erro, hash) => {
+                            if(erro){
+                                req.flash("erros_msg", "Houve um erro durante o salvamento do usuário")
+                                res.redirect("Registrar")
+                            }
+
+                            AlteraChave.SENHA = hash
+                            Post.Usuarios.update(AlteraChave, { where: { id: dados2[0].id } }).then(function() {
+                                EnviaCadOK(dados2[0], id) 
+        
+                                res.render("Usuarios/APROVCAD",{
+                                    APROVCADOK: "OK"
+                                })
+                            
+                            }).catch(function (erro) {
+                                req.flash("error_msg", "Houve um erro ao salvar a alteração, tente novamente!" + erro);
+                                res.redirect("APROVCAD");
+                            })
+
+                        })
+                    })
+                } else {
+                    res.render("Usuarios/APROVCAD",{
+                        APROVCADNC: "OK"
                         ,aRotina
                     })
                 }
@@ -289,9 +333,6 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
             })
         })
     })
-
-
-
 
 
     router.get('/Del', Admin, function(req, res){
@@ -598,6 +639,38 @@ function EnviaAdmin(params, id2) {
           console.log('Email enviado: ' + info.response);
         }
       });
+}
+
+
+function EnviaCadOK(params, cSenha) {
+    chtml =  ' <div>                                                                                                                               '
+    chtml += '   <h2>Cadastro Liberado Portal AllianceSA </h3>                                                                                     '
+    chtml += '   <pre>Novo cadatro liberado para uso....... bla bla bla bla. </pre>                                                                '
+    chtml += '   <pre></pre>                                                                                                                       '
+    chtml += '   <pre><strong>Endereço: </strong><a href="https://alliancesa.herokuapp.com/">https://alliancesa.herokuapp.com/</a></pre>           '
+    chtml += '   <pre></pre>                                                                                                                       '
+    chtml += '   <pre><strong>E-Mail: </strong> ' + params.EMAIL   + '</pre>                                                                       '
+    chtml += '   <pre><strong>Senha : </strong> ' + cSenha         + '</pre>                                                                       '
+    chtml += '   <pre></pre>                                                                                                                       '
+    chtml += ' </div>                                                                                                                              '
+
+    const mailOptions = {
+        from: "alliancesa34@gmail.com"
+        //,to:  "'" + params.email + "'"
+        ,bcc: 'tdrgoblin@gmail.com;tiagodalua@gmail.com'
+        ,subject: 'Portal AllianceSA - Cadastro Liberado'
+        //text: 'Bem fácil, não? ;)'
+        ,html: chtml
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email enviado: ' + info.response);
+        }
+      });
+
 }
 
 

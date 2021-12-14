@@ -1,7 +1,7 @@
 
 
 
-    {{#if aEsqueciOK}}
+    {{#if aValidOK}}
         <div class="alert alert-success" align="center">E-Mail validado com sucesso, favor aguardar a liberação dos admins.</div>
         
         <script>
@@ -10,7 +10,7 @@
             }, 3000)
         </script>
     {{else}}
-        {{#if aEsqueciNC}}
+        {{#if aValidNC}}
             <div class="alert alert-danger" align="center">chave não encontrada. </div>
 
             <script>
