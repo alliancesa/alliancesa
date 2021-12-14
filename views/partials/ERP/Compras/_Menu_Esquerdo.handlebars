@@ -1,0 +1,29 @@
+
+
+
+    <div class="leftMenuHeader">                
+        <li>
+            <a href="/">
+                <i class="fa fa-shopping-cart"></i>
+                <span>ERP / COMPRAS</span>
+            </a>
+        </li>
+    </div>
+        {{#foreach aRotina}}
+            {{#if_eq this 'ERP_SC'}}
+                <li><a href="/ERP/Compras/SC"><span></span><span></span><i class="fas fa-shopping-basket"></i><span>Solicitação de Compras</span></a></li>  
+            {{/if_eq}}
+            {{#if_eq this 'ERP_Pedidos'}} 
+                <li><a href="/ERP/Compras/Pedidos"><span></span><span></span><i class="fas fa-cash-register"></i><span>Pedidos de Compra</span></a></li>
+            {{/if_eq}}         
+        {{/foreach}}
+    <pre></pre>
+    <li>
+        <a href="#"class="dropdown">
+            <span></span><i class="fas fa-file-alt"></i>
+            <span class="nav-text"><strong>RELATÓRIOS</strong></span>
+        </a> 
+        <ul class="dropdownlist">
+            <li><a href="/ERP/Compras/Relatorios/NotasEntrada"><span></span><span></span><i class="fas fa-landmark"></i><span>Notas Entradas</span></a></li>
+        </ul>
+    </li>

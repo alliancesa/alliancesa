@@ -1,0 +1,193 @@
+<div class="container-fluid">    
+    {{#each erros}}
+        <div class="alert alert-danger"> {{texto}} </div>
+    {{else}}
+
+    {{/each}}
+    
+    <pre>   </pre>
+    
+    <div class="container center" id="dTabela"></div>
+
+    <pre>   </pre>
+
+    <div id="loader2">
+        <div class="centraliza">
+            <div class="conteudoFixo">
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="Carregando" role="progressbar" aria-valuenow="0" id="progress"
+                        aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>	
+</div>
+
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>  -->
+<script type="text/javascript" src="/js/jquery.mask.js"></script>
+<script type="text/javascript" src="/js/javascript.helpers.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="/js/jquery.table2excel.js"></script>
+
+<script>   
+    DivTituloTexto.innerText = "Lista Modulos"
+    DivTitulo.setAttribute("class", "card shadow border-central")
+
+    var options 
+    var cDados
+    var aDados
+
+    google.charts.setOnLoadCallback(CarregaTabela); 
+
+    function CarregaTabela() {
+        aDados = new google.visualization.DataTable();
+        
+        aDados.addColumn('string', '');            //00 Tipo
+        aDados.addColumn('string', "");            //01 Modulo
+        aDados.addColumn('string', "");            //02 Relatórios
+        aDados.addColumn('string', "");            //03 Programa
+        aDados.addColumn('string', "");            //04 Descrição
+
+        var cssClassNames = {
+            'headerRow': 'default-font bold-font a center-text fundo-table-background-padrao '
+            ,'tableRow': 'false'
+            ,'oddTableRow': ''
+            //,'selectedTableRow': 'orange-background large-font'
+            ,'hoverTableRow': 'false'
+            ,'headerCell': ''
+            ,'tableCell': 'default-font'
+            ,'rowNumberCell': 'underline-blue-font'
+        }
+
+        options  = {
+            showRowNumber: false
+            ,allowHtml: true
+            //,chartArea: {'width': '100%', 'height': '80%'}
+            ,'cssClassNames': cssClassNames
+        }
+
+        cDados = new google.visualization.Table(document.getElementById('dTabela'));
+        cDados.draw(aDados, options); 
+    }
+    
+    function CarregaDados() {
+         // Carrega DIV de carregamento
+        jQuery("#loader2").fadeIn("slow")      
+
+        BuscaDados('/admin/Modulos/', [
+            1
+        ])
+        
+        //Carrega API
+        request.done(dados => {  
+            Loading(Carregando, 30)
+            
+            if(aDados.getNumberOfRows() > 0)
+                aDados.removeRows(0, aDados.getNumberOfRows())
+        })
+
+        //Processa Dados
+        request.then(dados => {  
+
+            var nX = 0
+            var cTipo = ''
+            var cMod  = ''
+            var cRel  = ''
+                
+            // Conta Tamanho da tabela
+            for(i=0; i < dados.length; i++) {
+                if(i == 0){
+                    nX++                                      
+                    nX++    
+                    cTipo = dados[i].TIPO
+                    cMod  = dados[i].MODULO
+                    cRel = ''
+                } else {
+                    if(cMod != dados[i].MODULO ){
+                        if(cTipo != dados[i].TIPO) {
+                            nX++
+                            cTipo = dados[i].TIPO
+                            cRel = ''
+                        }               
+                        nX++    
+                        cMod  = dados[i].MODULO
+                        cRel = ''
+                    }
+
+                }
+                if(dados[i].RELATORIOS == 'N'){
+                    cRel = ''
+                } else {
+                    if(cRel == ''){
+                        nX++ 
+                    }
+                    cRel = 'S'
+                }
+                nX++
+            }
+
+            aDados.addRows(nX)
+            
+            nX = 0
+            cTipo = ''
+            cMod  = ''
+            cRel  = ''
+
+            for(i=0; i < dados.length; i++) {
+                if(i == 0){
+                    aDados.setCell(nX,  0, '' ,dados[i].TIPO, { style: "font-weight:bold; text-align: center"  })
+                    nX++                   
+                    aDados.setCell(nX,  1, '', dados[i].MODULO, { style: "font-weight:bold; text-align: center" })
+                    nX++    
+                    cTipo = dados[i].TIPO
+                    cMod  = dados[i].MODULO
+                    cRel = ''
+                } else {
+                    if(cMod != dados[i].MODULO ){
+                        if(cTipo != dados[i].TIPO) {
+                            aDados.setCell(nX,  0, '' ,dados[i].TIPO, { style: "font-weight:bold; text-align: center"  })
+                            nX++
+                            cTipo = dados[i].TIPO
+                            cRel = ''
+                        }               
+                        aDados.setCell(nX,  1, '', dados[i].MODULO, { style: "font-weight:bold; text-align: center" })
+                        nX++    
+                        cMod  = dados[i].MODULO
+                        cRel = ''
+                    }
+
+                }
+                if(dados[i].RELATORIOS == 'N'){
+                    aDados.setCell(nX,  4, '', dados[i].PROGRAMA, { style: "text-align: center" })
+                    aDados.setCell(nX,  2, '', dados[i].Descricao )
+                    cRel = ''
+                } else {
+                    if(cRel == ''){
+                        aDados.setCell(nX,  2, '', 'Relatórios', { style: "font-weight:bold; text-align: right" })
+                        nX++ 
+                    }
+                    aDados.setCell(nX,  4, '', dados[i].PROGRAMA, { style: "text-align: center" })
+                    aDados.setCell(nX,  3, dados[i].Descricao)
+                    cRel = 'S'
+                }
+
+                nX++
+            }
+
+            cDados.draw(aDados, options); 
+            
+            jQuery("#loader2").fadeOut("slow");
+        })
+    }
+    
+    setTimeout(function() {
+        CarregaDados()
+    }, 1000)
+
+    // Fecha div de carregando
+    jQuery("#loader").fadeOut("slow");
+    jQuery("#loader2").fadeOut("slow");
+
+</script>

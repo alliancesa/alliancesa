@@ -1,0 +1,454 @@
+    
+
+
+
+{{#foreach aMenu}}
+    {{#if_eq this 'ERP'}}
+    <!-- ERP -->
+        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                <i class="fas fa-hotel"></i>
+                <span class="nav-text">ERP</span>
+            </a>
+            <ul aria-expanded="false">
+                {{#foreach ../aModulo}}
+                    {{#if_eq this 'ERP_Comercial'}}
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-wallet"></i>
+                                <span class="nav-text">Comercial</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="/ERP/Comercial/PreVenda">Pré Venda</a></li>
+                                <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span class="nav-text">Relatório</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        {{#foreach ../../aRotina}}
+                                            {{#if_eq this 'ERP_BuscaNotas'}}
+                                                <li><a href="/ERP/Comercial/Relatorios/BuscaNotas">Busca Notas Fiscais</a></li>
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_CarteiraComercial'}}                    
+                                                <li><a href="/ERP/Comercial/Relatorios/CarteiraComercial">Carteira Clientes</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_ComFatRegioes'}}                    
+                                                <li><a href="/ERP/Comercial/Relatorios/ComFatRegioes">Faturamento Regiões</a></li>          
+                                            {{/if_eq}}         
+                                        {{/foreach}}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    {{/if_eq}}                     
+                    {{#if_eq this 'ERP_Compras'}}
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="nav-text">Compras</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                {{#foreach ../../aRotina}}
+                                    {{#if_eq this 'ERP_SC'}}
+                                        <li><a href="/ERP/Compras/SC">Solicitação de Compras</a></li>  
+                                    {{/if_eq}}
+                                    {{#if_eq this 'ERP_Pedidos'}} 
+                                        <li><a href="/ERP/Compras/Pedidos">Pedidos de Compra</a></li>
+                                    {{/if_eq}}         
+                                {{/foreach}}
+                                <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span class="nav-text">Relatório</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        {{#foreach ../../aRotina}}
+                                            {{#if_eq this 'ERP_NotasEntrada'}} 
+                                                <li><a href="/ERP/Compras/Relatorios/NotasEntrada">Notas Entradas</a></li>
+                                            {{/if_eq}}    
+                                        {{/foreach}}
+                                    </ul>
+                                </li> 
+                            </ul>   
+                        </li>                                   
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Contabilidade'}}                        
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-calculator"></i>
+                                <span class="nav-text">Contabilidade</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span class="nav-text">Relatório</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        {{#foreach ../../aRotina}}
+                                            {{#if_eq this 'ERP_RelDREGEREMP'}}
+                                                <li><a href="/ERP/Contabilidade/Relatorios/RelDREGEREMP">DRE Gerencial Consolidado</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_RelDRE'}}
+                                                <li><a href="/ERP/Contabilidade/Relatorios/RelDRE">DRE</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_RelDREGER'}}                    
+                                                <li><a href="/ERP/Contabilidade/Relatorios/RelDREGER">DRE Gerencial</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_SaldosViradas'}}                    
+                                                <li><a href="/ERP/Contabilidade/Relatorios/SaldosViradas">Saldos de Viradas</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_SaldosViradasCalc'}}                    
+                                                <li><a href="/ERP/Contabilidade/Relatorios/SaldosViradasCalc">Saldos de Viradas Calculo</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_SaldosViradasCusto'}}                    
+                                                <li><a href="/ERP/Contabilidade/Relatorios/SaldosViradasCusto">Saldos de Viradas Custo</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_SaldosViradasCustoCalc'}}                    
+                                                <li><a href="/ERP/Contabilidade/Relatorios/SaldosViradasCustoCalc">Saldos de Viradas Custo Calculo</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_SaldoEmEstoque'}}                    
+                                                <li><a href="/ERP/Contabilidade/Relatorios/SaldoEmEstoque">Saldo Negativos em Estoque</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_RelInvent'}}                    
+                                                <li><a href="/ERP/Contabilidade/Relatorios/RelInvent">Movimentos Inventário</a></li>          
+                                            {{/if_eq}}         
+                                            {{#if_eq this 'ERP_RelIBGE'}}                    
+                                                <li><a href="/ERP/Contabilidade/Relatorios/RelIBGE">Relatório para IBGE</a></li>          
+                                            {{/if_eq}}   
+                                         {{/foreach}}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Estoque'}}                        
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-box-open"></i>
+                                <span class="nav-text">Estoque</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                {{#foreach ../../aRotina}}
+                                    {{#if_eq this 'ERP_GeraInvent'}}  
+                                        <li><a href="/ERP/Estoque/GeraInvent">Gera Inventários</a></li>  
+                                    {{/if_eq}}
+                                    {{#if_eq this 'ERP_ConfMP'}}            
+                                        <li><a href="/ERP/Estoque/ConfMP">Conferência Matéria-Prima</a></li>
+                                    {{/if_eq}}
+                                    {{#if_eq this 'ERP_ConfEst'}} 
+                                        <li><a href="/ERP/Estoque/ConfEst">Conferência Estoque</a></li>
+                                    {{/if_eq}}
+                                {{/foreach}}
+                                <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span class="nav-text">Relatório</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        {{#foreach ../../aRotina}}
+                                            {{#if_eq this 'ERP_HistIndProd'}}
+                                                <li><a href="/ERP/Estoque/Relatorios/HistIndProd">Histórico Indicadores Produção</a></li> 
+                                            {{/if_eq}}         
+                                            {{#if_eq this 'ERP_GastosProd'}}
+                                                <li><a href="/ERP/Estoque/Relatorios/GastosProd">Gastos Gerais de Fabricação</a></li>
+                                            {{/if_eq}}         
+                                            {{#if_eq this 'ERP_ProdDiaSetor'}}
+                                                <li><a href="/ERP/Estoque/Relatorios/ProdDiaSetor">Produção Diária por Setor</a></li>
+                                            {{/if_eq}}         
+                                            {{#if_eq this 'ERP_RelEtqValidas'}}                    
+                                                <li><a href="/ERP/Estoque/Relatorios/RelEtqValidas">Rel. Etiquetas Válidas</a></li>
+                                            {{/if_eq}}         
+                                            {{#if_eq this 'ERP_RelGerInventario'}}                    
+                                                <li><a href="/ERP/Estoque/Relatorios/RelGerInventario">Rel. Geração de Inventário</a></li>
+                                            {{/if_eq}}         
+                                            {{#if_eq this 'ERP_ProdSetor'}}                    
+                                                <li><a href="/ERP/Estoque/Relatorios/ProdSetor">Produções por Setores</a></li>
+                                            {{/if_eq}}         
+                                            {{#if_eq this 'ERP_ControleProducao'}}                    
+                                                <li><a href="/ERP/Estoque/Relatorios/ControleProducao">Controle de Produções</a></li>
+                                            {{/if_eq}}         
+                                            {{#if_eq this 'ERP_CustoMOD'}}                    
+                                                <li><a href="/ERP/Estoque/Relatorios/CustoMOD">Rel. Custo MOD</a></li>
+                                            {{/if_eq}}       
+                                            {{#if_eq this 'ERP_RelCustoManu'}}                    
+                                                <li><a href="/ERP/Estoque/Relatorios/RelCustoManu">Rel. Custo Manutenção</a></li>
+                                            {{/if_eq}}     
+
+                                            {{#if_eq this 'ERP_RelMovAlmox'}}                    
+                                                <li><a href="/ERP/Estoque/Relatorios/RelMovAlmox">Rel. Movimentações Almox</a></li>
+                                            {{/if_eq}}        
+                                        {{/foreach}}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Expedicao'}}                        
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-shuttle-van"></i>
+                                <span class="nav-text">Expedição</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                {{#foreach ../../aRotina}}
+                                    {{#if_eq this 'ERP_Romaneios'}}
+                                        <li><a href="/ERP/Expedicao/Relatorios/Romaneios">Romaneios</a></li>          
+                                    {{/if_eq}}
+                                    {{#if_eq this 'ERP_Embarques'}}
+                                        <li><a href="/ERP/Expedicao/Relatorios/Embarques">Embarques e Entregas</a></li>          
+                                    {{/if_eq}}
+                                    {{#if_eq this 'ERP_NotasCTE'}}                    
+                                        <li><a href="/ERP/Expedicao/Relatorios/NotasCTE">Notas e CTE's</a></li>          
+                                    {{/if_eq}}         
+                                {{/foreach}}
+                            </ul>
+                        </li>
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Faturamento'}}                        
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-money-bill-wave"></i>
+                                <span class="nav-text">Faturamento</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                {{#foreach ../../aRotina}}
+                                    {{#if_eq this 'ERP_Familia'}}
+                                        <li><a href="/ERP/Faturamento">Faturamento</a></li>   
+                                    {{/if_eq}}         
+                                {{/foreach}}
+                                <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span class="nav-text">Relatório</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        {{#foreach ../../aRotina}}
+                                            {{#if_eq this 'ERP_RelMetaPorDia'}}
+                                                <li><a href="/ERP/Faturamento/Relatorios/RelMetaPorDia">Meta por Dia</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_RelVendasRealizar'}}
+                                                <li><a href="/ERP/Faturamento/Relatorios/RelVendasRealizar">Orçamento Vs Faturamento</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_RelPesoFat'}}                    
+                                                <li><a href="/ERP/Faturamento/Relatorios/RelPesoFat">Peso Vs Faturamento</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_CustoVenda'}}                                        
+                                                <li><a href="/ERP/Faturamento/Relatorios/CustoVenda">Margem de Contribuição</a></li>  
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_FatResiduo'}}                                        
+                                                <li><a href="/ERP/Faturamento/Relatorios/FatResiduo">Vendas Residuos</a></li>  
+                                            {{/if_eq}}                
+                                        {{/foreach}}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Financeiro'}}                          
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-hand-holding-usd"></i>
+                                <span class="nav-text">Financeiro</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                {{#foreach ../../aRotina}}
+                                    {{#if_eq this 'ERP_Libbbbb'}}  
+                                        <li><a href="#">Liberações</a></li>  
+                                    {{/if_eq}}
+                                    {{#if_eq this 'ERP_FINBLOQ'}}            
+                                        <li><a href="/ERP/Financeiro/FINBLOQ">Bloqueio Financeiro</a></li>
+                                    {{/if_eq}}
+                                {{/foreach}}
+                                <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span class="nav-text">Relatório</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        {{#foreach ../../aRotina}}
+                                            {{#if_eq this 'ERP_FINRELFLUXO'}}
+                                                <li><a href="/ERP/Financeiro/Relatorios/FINRELFLUXO">Fluxo</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_RELREC'}}
+                                                <li><a href="/ERP/Financeiro/Relatorios/RELREC">Recebimentos e Pagamentos</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_RELRECPAGAPAG'}}
+                                                <li><a href="/ERP/Financeiro/Relatorios/RELRECPAGAPAG">Rec./Pag. e à Pagar</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_RecVsDesp'}}                    
+                                                <li><a href="/ERP/Financeiro/Relatorios/RecVsDesp">Faturamento Vs Compras</a></li> 
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_aPagarAlcabras'}}
+                                                <li><a href="/ERP/Financeiro/Relatorios/aPagarAlcabras">A Pagar Alçabras</a></li> 
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_RecVsDespAnual'}}
+                                                <li><a href="/ERP/Financeiro/Relatorios/RecVsDespAnual">Fat Vs Compras Anual</a></li> 
+                                            {{/if_eq}}
+                                        {{/foreach}}                    
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>                                   
+                    {{/if_eq}}
+                    {{#if_eq this 'ERP_PCP'}}                        
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-hand-holding-usd"></i>
+                                <span class="nav-text">PCP</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                {{#foreach ../../aRotina}}
+                                    {{#if_eq this 'ERP_Perdas'}}
+                                        <li><a href="/ERP/PCP/Relatorios/Perdas">Relatórios de Perdas</a></li>          
+                                    {{/if_eq}}      
+                                    {{#if_eq this 'ERP_BuscaMateria'}}
+                                        <li><a href="/ERP/PCP/Relatorios/BuscaMateria">Busca Materia</a></li>          
+                                    {{/if_eq}}      
+                                    {{#if_eq this 'ERP_Programacoes'}}
+                                        <li><a href="/ERP/PCP/Relatorios/Programacoes">Programações</a></li>          
+                                    {{/if_eq}}      
+                                    {{#if_eq this 'ERP_RelVendRealPCP'}}
+                                        <li><a href="/ERP/PCP/Relatorios/RelVendRealPCP">Orçamento Vs Faturamento</a></li>
+                                    {{/if_eq}}      
+                                    {{#if_eq this 'ERP_RelRealVSStandard'}}
+                                        <li><a href="/ERP/PCP/Relatorios/RelRealVSStandard">Real VS Standard</a></li>
+                                    {{/if_eq}}  
+                                {{/foreach}}
+                            </ul>
+                        </li>
+                    {{/if_eq}} 
+
+                    {{#if_eq this 'ERP_RH'}}     
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fas fa-city"></i>
+                                <span class="nav-text">RH</span>
+                            </a>
+                            <ul aria-expanded="false"> 
+                                {{#foreach ../../aRotina}}
+                                    {{#if_eq this 'ERP_RelValeCesta'}}
+                                        <li><a href="/ERP/RH/Relatorios/RelValeCesta">Vale Cesta</a></li>
+                                    {{/if_eq}}
+
+                                    {{#if_eq this 'ERP_RelConfReif'}}
+                                        <li><a href="/ERP/RH/Relatorios/RelConfReif">Conferência Refeições</a></li>
+                                    {{/if_eq}}
+
+                                    {{#if_eq this 'ERP_RelQtdaReif'}}
+                                        <li><a href="/ERP/RH/Relatorios/RelQtdaReif">Quantidade Refeições</a></li>
+                                    {{/if_eq}}   
+                                {{/foreach}}
+                            </ul>
+                        </li>
+                    {{/if_eq}}
+                {{/foreach}}
+            </ul>
+        </li>
+    {{/if_eq}} 
+
+    {{#if_eq this 'Fabrica'}}
+        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                <i class="fas fa-industry"></i>
+                <span class="nav-text">Fábrica</span>
+            </a>
+            <ul aria-expanded="false">
+                {{#foreach ../aRotina}}
+                    {{#if_eq this 'Fabrica_EficiTP'}}
+                        <li><a href="/Fabrica/Gerencia/Relatorios/EficiTP">Rel. Eficiências TP</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'Fabrica_Extrusora'}}
+                        <li><a href="/Fabrica/Paineis/Extrusora">Extrusora</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'Fabrica_TecPlana'}}
+                        <li><a href="/Fabrica/Paineis/TPGrupos">Grupos TecPlana</a></li>
+                    {{/if_eq}}
+                {{/foreach}}
+            </ul>
+        </li>
+    {{/if_eq}} 
+     
+    {{#if_eq this 'PAINEIS'}}
+        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                <i class="fas fa-solar-panel"></i>
+                <span class="nav-text">Painéis</span>
+            </a>
+            <ul aria-expanded="false">
+                 {{#foreach ../aModulo}}
+                    {{#if_eq this 'PAINEIS_Comercial'}}
+                        <li><a href="/PAINEIS/Comercial">Comercial</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'PAINEIS_ADM_Fabrica'}}
+                        <li><a href="/PAINEIS/ADM_Fabrica">Fabrica</a></li>
+                    {{/if_eq}}
+                {{/foreach}}                        
+            </ul>
+        </li>
+    {{/if_eq}}
+
+    {{#if_eq this 'RJ'}}
+        <!-- RJ -->
+        <pre></pre>
+        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                <i class="fab fa-accessible-icon"></i>
+                <span class="nav-text">RJ</span>
+            </a>
+            <ul aria-expanded="false">
+                {{#foreach ../aRotina}}
+                    {{#if_eq this 'RJ_ComprasMP'}}
+                        <li><a href="/RJ/Gerencia/ComprasMP">Compras de MP</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'RJ_FatClientes'}}
+                        <li><a href="/RJ/Gerencia/FatClientes">Faturamento por Clientes</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'RJ_APagar'}}
+                        <li><a href="/RJ/Gerencia/APagar">A Pagar</a></li>
+                    {{/if_eq}}
+                {{/foreach}}                    
+            </ul>
+        </li>     
+        <pre></pre>   
+    {{/if_eq}}
+{{/foreach}}
+
+
+    <!-- CHAMADOS TI -->
+        <pre></pre>
+        <pre></pre>
+        <pre></pre>
+        <pre></pre>
+        <pre></pre>
+        <pre></pre>
+        <hr>
+        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                <i class="fa fa-hands-helping"></i>
+                <span class="nav-text">CHAMADOS TI</span>
+            </a>
+            <ul aria-expanded="false">
+                <li>
+                    <a href="/Chamados/Add">Adicionar</a>
+                </li>
+                <li>
+                    <a href="/Chamados/Listar">Listar</a>
+                </li>    
+
+                {{#foreach aRotina}}
+                    {{#if_eq this 'Chamados_Manutencao'}}
+                        <pre>  </pre>     
+                        <li><a href="/Chamados/Manutencao"><i class="fas fa-cog"></i>Manutenção</a></li>       
+                    {{/if_eq}}
+                {{/foreach}}
+            </ul>
+        </li>
+        <hr>
+    <!-- CHAMADOS TI FIM -->
+
+    <!-- MENU VENDEDORES -->
+    {{#if aMenuVendedor}}
+        {{> Vendedores/_Menu_Esquerdo }}
+    {{/if}} 

@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="card border shadow h-100 py-2">
+        <pre></pre>
+        <div class="card-header"><strong>Listar Equipamentos</strong></div>
+        <div class="card-body">
+            <table class="table" style="font-size: 12px;">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center" bgcolor="#DFEFFF">#</th>
+                        <th scope="col" align="center" bgcolor="#DFEFFF">Código</th>
+                        <th scope="col" align="center" bgcolor="#DFEFFF">Empresa</th>
+                        <th scope="col" align="center" bgcolor="#DFEFFF">Descrição</th>
+                        <th scope="col" align="center" bgcolor="#DFEFFF">IP</th>
+                        <th scope="col" align="center" bgcolor="#DFEFFF">Nominal</th>
+                        <th scope="col" align="center" bgcolor="#DFEFFF">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each aEquipamentos}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{Codigo}}</td>
+                            <td>{{EmpresasID}}</td>
+                            <td>{{Descricao}}</td>
+                            <td>{{IP}}</td>
+                            <td>{{Nominal}}</td>
+                            <td>{{Status}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

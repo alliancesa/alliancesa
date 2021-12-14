@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    {{#each erros}}
+        <div class="alert alert-danger"> {{texto}} </div>
+    {{else}}
+
+    {{/each}}
+
+    <div class="card">
+        <div class="card-header">Cadastro de Modulos</div>
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <form action="/admin/Modulos/add" method="post">
+                    <input type="text" name="CodigoPai" id="CodigoPai" class="form-control" placeholder="CodigoPai">
+                    <pre></pre>
+                    <select class="form-control" id="Codigo" placeholder="Codigo" name="Codigo">
+                        <option value=""></option>
+                        {{#each aModulos}}
+                        <option value="{{Codigo}}">{{Codigo}} - {{Descricao}}</option>
+                        {{/each}}                
+                    </select>
+                    
+                    <pre></pre>
+                    <input type="text" name="SubCodigo" id="SubCodigo" class="form-control" placeholder="SubCódigo">
+                    <pre></pre>
+                    <input type="text" name="Descricao" id="Descricao" class="form-control" placeholder="Descricao" required>
+                    <pre></pre>
+                    <input type="text" name="Modulos" id="Modulos" class="form-control" placeholder="Modulos" required>
+                    <pre></pre>
+                    <div align="right">
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

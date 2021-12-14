@@ -1,0 +1,623 @@
+<div class="container-fluid">    
+    {{#each erros}}
+        <div class="alert alert-danger"> {{texto}} </div>
+    {{else}}
+
+    {{/each}}
+  
+    <div class="FixTela card border shadow empresa-fundo_1" style="width: 94%">
+        <div class="card-body ">
+            <div class="card-menu border-left-primary">FATURAMENTO GRUPO</div>
+        </div>
+        <div class="card-body col-sm">
+            <div class="row">
+                <div class="col-3">
+                    <label><strong>Total Geral - MÊS</strong></label>
+                    <input type="text" class="form-control form-control-sm" id="nFatGrupoMes" value="R$ 0,00" size="10" disabled>
+                    <pre></pre>
+                </div>
+                <div class="col-3">
+                    <label><strong>Preço Médio Geral - MÊS</strong></label>
+                    <input type="text" class="form-control form-control-sm" id="nPrecoGrupoMes" value="R$ 0,00" size="10" disabled>
+                    <pre></pre>
+                </div>
+                <div class="col-3">
+                    <label><strong>Volume Geral - MÊS</strong></label>
+                    <input type="text" class="form-control form-control-sm" id="nTonGrupoMes" value="R$ 0,00" size="10" disabled>
+                    <pre></pre>
+                </div>
+                <div class="col-3">
+                    <label><strong>Residuo Geral - MÊS</strong></label>
+                    <input type="text" class="form-control form-control-sm" id="nResiduoGrupoMes" value="R$ 0,00" size="10" disabled>
+                    <pre></pre>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label><strong>Total Geral - ANO</strong></label>
+                    <input type="text" class="form-control form-control-sm" id="nFatGrupoAno" value="R$ 0,00" size="10" disabled>
+                </div>
+                <div class="col-3">
+                    <label><strong>Preço Médio Geral - ANO</strong></label>
+                    <input type="text" class="form-control form-control-sm" id="nPrecoGrupoAno" value="R$ 0,00" size="10" disabled>
+                </div>
+                <div class="col-3">
+                    <label><strong>Volume Geral - ANO</strong></label>
+                    <input type="text" class="form-control form-control-sm" id="nTonGrupoAno" value="R$ 0,00" size="10" disabled>
+                </div>
+                <div class="col-3">
+                    <label><strong>Residuo Geral - ANO</strong></label>
+                    <input type="text" class="form-control form-control-sm" id="nResiduoGrupoAno" value="R$ 0,00" size="10" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+<pre> </pre>
+<pre> </pre>
+<pre> </pre>
+<pre> </pre>
+<pre> </pre>
+<pre> </pre>
+<pre></pre>
+
+
+    <div class="FixTela" style="width: 94%">
+        <div class="card-body ">
+            <div class="row">
+                <pre>   </pre>
+                <div class="card border shadow fundo_proc_100" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body">
+                        <div class="card-menu">Procópio Indústria</div>
+                    </div>
+                </div>
+                <pre>   </pre>
+                <div class="card border shadow fundo_procemb_100" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body">
+                        <div class="card-menu">Procópio Embalagens</div>
+                    </div>
+                </div>
+                <pre>   </pre>
+                <div class="card border shadow fundo_alca_100" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body">
+                        <div class="card-menu">Alçabras Indústria</div>
+                    </div>
+                </div>
+                <pre>   </pre>
+                <div class="card border shadow fundo_alcatec_100" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body ">
+                        <div class="card-menu">Alçatec Indústria</div>
+                    </div>   
+                </div> 
+            </div>
+        </div>
+    </div>
+    <pre> </pre>
+    <pre> </pre>   
+
+   
+    <div class="">
+        <div class="card-body ">
+            <div class="row">
+                <pre>   </pre>
+                <div class="card border shadow fundo_proc" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body">
+                        <label><strong>Faturamento Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcFat" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Faturamento Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcFatMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Faturamento Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcFatAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcPrcDia" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcPrcMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcPrcAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Volume Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcVolDia" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>    
+                        <label><strong>Volume Mẽs</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcVolMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>                    
+                        <label><strong>Volume Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcVolAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>    
+                        <label><strong>Residuo Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcResi" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>   
+                        <label><strong>Preço Médio MP Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcMP" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>                    
+                    </div>
+                </div>
+                <pre>   </pre>
+
+                <div class="card border shadow fundo_procemb" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body ">
+                        <label><strong>Faturamento Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbFat" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Faturamento Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbFatMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Faturamento Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbFatAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbPrcDia" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbPrcMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbPrcAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Volume Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbVolDia" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>    
+                        <label><strong>Volume Mẽs</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbVolMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>                    
+                        <label><strong>Volume Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbVolAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>    
+                        <label><strong>Residuo Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbResi" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>  
+                        <label><strong>Preço Médio MP Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nProcEmbMP" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>                               
+                    </div>
+                </div>
+                <pre>   </pre>
+
+                <div class="card border shadow fundo_alca" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body ">
+                        <label><strong>Faturamento Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaFat" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Faturamento Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaFatMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Faturamento Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaFatAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaPrcDia" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaPrcMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaPrcAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Volume Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaVolDia" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>    
+                        <label><strong>Volume Mẽs</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaVolMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>                    
+                        <label><strong>Volume Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaVolAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>    
+                        <label><strong>Residuo Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaResi" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>      
+                        <label><strong>Preço Médio MP Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcaMP" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>                                            
+                    </div>
+                </div>
+                <pre>   </pre>
+
+                <div class="card border shadow fundo_alcatec" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body ">
+                        <label><strong>Faturamento Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecFat" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Faturamento Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecFatMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Faturamento Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecFatAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecPrcDia" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecPrcMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Preço Médio Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecPrcAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>
+                        <label><strong>Volume Dia</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecVolDia" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>    
+                        <label><strong>Volume Mẽs</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecVolMes" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>                    
+                        <label><strong>Volume Ano</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecVolAno" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>    
+                        <label><strong>Residuo Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecResi" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>      
+                        <label><strong>Preço Médio MP Mês</strong></label>
+                        <input type="text" class="form-control form-control-sm" id="nAlcatecMP" value="R$ 0,00" size="10" disabled>
+                        <pre></pre>                                       
+                    </div>
+                </div>
+            </div>
+            <pre>   </pre>
+            <div class="row">
+                <pre>   </pre>
+                <div class="card border shadow fundo_proc" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body ">
+                        <div class="card-menu border-left-primary">Preço Médio Família</div>
+                    </div>
+                    <div class="card-body" id="cProc">
+                
+                    </div>
+                </div>
+                <pre>   </pre>
+                <div class="card border shadow fundo_procemb" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body ">
+                        <div class="card-menu border-left-success">Preço Médio Família</div>
+                    </div>
+                    <div class="card-body" id="cProcEmb">
+                        
+                    </div>
+                </div>
+                <pre>   </pre>
+                <div class="card border shadow fundo_alca" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body ">
+                        <div class="card-menu border-left-danger">Preço Médio Família</div>
+                    </div>
+                    <div class="card-body" id="cAlca">
+                
+                    </div>
+                </div>
+                <pre>   </pre>
+                <div class="card border shadow fundo_alcatec" style="width: 280px">
+                    <pre></pre>
+                    <div class="card-body ">
+                        <div class="card-menu border-left-warning">Preço Médio Família</div>
+                    </div>
+                    <div class="card-body" id="cAlcatec">
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loader2">
+        <div class="centraliza">
+            <div class="conteudoFixo">
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="Carregando" role="progressbar" aria-valuenow="0" id="progress"
+                        aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>  -->
+<script type="text/javascript" src="/js/jquery.mask.js"></script>
+<script type="text/javascript" src="/js/javascript.helpers.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="/js/jquery.table2excel.js"></script>
+
+<script>   
+    
+    var options 
+
+    var cDados
+    var cDados2
+    var cDados3
+    var cDados4
+
+    var aDados
+    var aDados2
+    var aDados3
+    var aDados4
+
+    google.charts.setOnLoadCallback(CarregaTabela); 
+
+    function CarregaTabela() {
+        aDados = new google.visualization.DataTable();
+        aDados2 = new google.visualization.DataTable();
+        aDados3 = new google.visualization.DataTable();
+        aDados4 = new google.visualization.DataTable();
+        
+        aDados.addColumn('string', 'Famíĺia');            //00
+        aDados.addColumn('number', "Valor");              //02        
+
+        aDados2.addColumn('string', 'Famíĺia');            //00
+        aDados2.addColumn('number', "Valor");              //02
+
+        aDados3.addColumn('string', 'Famíĺia');            //00
+        aDados3.addColumn('number', "Valor");              //02        
+
+        aDados4.addColumn('string', 'Famíĺia');            //00
+        aDados4.addColumn('number', "Valor");              //02        
+
+        var cssClassNames = {
+            'headerRow': 'default-font bold-font a left-text fundo-table-background-padrao '
+            ,'tableRow': 'false'
+            ,'oddTableRow': ''
+            //,'selectedTableRow': 'orange-background large-font'
+            ,'hoverTableRow': 'false'
+            ,'headerCell': ''
+            ,'tableCell': 'default-font'
+            ,'rowNumberCell': 'underline-blue-font'
+        }
+
+        options  = {
+            showRowNumber: false
+            ,width: '100%'
+            ,height: '100%'
+            ,allowHtml: true
+            ,'cssClassNames': cssClassNames
+        }
+
+        cDados  = new google.visualization.Table(document.getElementById('cProc'));
+        cDados2 = new google.visualization.Table(document.getElementById('cProcEmb'));
+        cDados3 = new google.visualization.Table(document.getElementById('cAlca'));
+        cDados4 = new google.visualization.Table(document.getElementById('cAlcatec'));
+        
+        cDados.draw(aDados, options); 
+        cDados2.draw(aDados2, options); 
+        cDados3.draw(aDados3, options); 
+        cDados4.draw(aDados4, options); 
+    }
+    
+    function CarregaDados() {
+
+        var nFatGr      = 0
+        var nTonGr      = 0
+        var nResiduoGru = 0  
+        var nFatGrAno      = 0
+        var nTonGrAno      = 0
+        var nResiduoGruAno = 0  
+        
+        //  Dados empresas
+        BuscaDados('/Gerencial2', [
+            1
+        ])
+
+        //Processa Dados
+        request.then(dados => {  
+            for(i=0; i < dados.length; i++) {
+
+                if(dados[i].FILIAL == '0001'){
+                    nProcFat.value      =  'R$ ' + dados[i].VALBRUT_DIA.toLocaleString("PT-BR")
+                    nProcFatMes.value   =  'R$ ' + dados[i].VALBRUT_MES.toLocaleString("PT-BR")
+                    nProcFatAno.value   =  'R$ ' + dados[i].VALBRUT_ANO.toLocaleString("PT-BR")
+                    nProcPrcDia.value   =  'R$ ' + dados[i].PRCMED_DIA.toLocaleString("PT-BR")
+                    nProcPrcMes.value   =  'R$ ' + dados[i].PRCMED_MES.toLocaleString("PT-BR")
+                    nProcPrcAno.value   =  'R$ ' + dados[i].PRCMED_ANO.toLocaleString("PT-BR")
+                    nProcVolDia.value   =  dados[i].PBRUTO_DIA.toLocaleString("PT-BR") + ' TON'
+                    nProcVolMes.value   =  dados[i].PBRUTO_MES.toLocaleString("PT-BR") + ' TON'
+                    nProcVolAno.value   =  dados[i].PBRUTO_ANO.toLocaleString("PT-BR") + ' TON'
+                    nProcResi.value     =  dados[i].PESO_RESIDUO_MES.toLocaleString("PT-BR")
+                } else if(dados[i].FILIAL == '01010101'){
+                    nAlcaFat.value      =  'R$ ' + dados[i].VALBRUT_DIA.toLocaleString("PT-BR")
+                    nAlcaFatMes.value   =  'R$ ' + dados[i].VALBRUT_MES.toLocaleString("PT-BR")
+                    nAlcaFatAno.value   =  'R$ ' + dados[i].VALBRUT_ANO.toLocaleString("PT-BR")
+                    nAlcaPrcDia.value   =  'R$ ' + dados[i].PRCMED_DIA.toLocaleString("PT-BR")
+                    nAlcaPrcMes.value   =  'R$ ' + dados[i].PRCMED_MES.toLocaleString("PT-BR")
+                    nAlcaPrcAno.value   =  'R$ ' + dados[i].PRCMED_ANO.toLocaleString("PT-BR")
+                    nAlcaVolDia.value   =  dados[i].PBRUTO_DIA.toLocaleString("PT-BR") + ' TON'
+                    nAlcaVolMes.value   =  dados[i].PBRUTO_MES.toLocaleString("PT-BR") + ' TON'
+                    nAlcaVolAno.value   =  dados[i].PBRUTO_ANO.toLocaleString("PT-BR") + ' TON'
+                    nAlcaResi.value     =  dados[i].PESO_RESIDUO_MES.toLocaleString("PT-BR")
+                } else if(dados[i].FILIAL == '01020101'){   
+                    nAlcatecFat.value      =  'R$ ' + dados[i].VALBRUT_DIA.toLocaleString("PT-BR")
+                    nAlcatecFatMes.value   =  'R$ ' + dados[i].VALBRUT_MES.toLocaleString("PT-BR")
+                    nAlcatecFatAno.value   =  'R$ ' + dados[i].VALBRUT_ANO.toLocaleString("PT-BR")
+                    nAlcatecPrcDia.value   =  'R$ ' + dados[i].PRCMED_DIA.toLocaleString("PT-BR")
+                    nAlcatecPrcMes.value   =  'R$ ' + dados[i].PRCMED_MES.toLocaleString("PT-BR")
+                    nAlcatecPrcAno.value   =  'R$ ' + dados[i].PRCMED_ANO.toLocaleString("PT-BR")
+                    nAlcatecVolDia.value   =  dados[i].PBRUTO_DIA.toLocaleString("PT-BR") + ' TON'
+                    nAlcatecVolMes.value   =  dados[i].PBRUTO_MES.toLocaleString("PT-BR") + ' TON'
+                    nAlcatecVolAno.value   =  dados[i].PBRUTO_ANO.toLocaleString("PT-BR") + ' TON'
+                    nAlcatecResi.value     =  dados[i].PESO_RESIDUO_MES.toLocaleString("PT-BR")
+                } else if(dados[i].FILIAL == '01030101'){
+                    nProcEmbFat.value      =  'R$ ' + dados[i].VALBRUT_DIA.toLocaleString("PT-BR")
+                    nProcEmbFatMes.value   =  'R$ ' + dados[i].VALBRUT_MES.toLocaleString("PT-BR")
+                    nProcEmbFatAno.value   =  'R$ ' + dados[i].VALBRUT_ANO.toLocaleString("PT-BR")
+                    nProcEmbPrcDia.value   =  'R$ ' + dados[i].PRCMED_DIA.toLocaleString("PT-BR")
+                    nProcEmbPrcMes.value   =  'R$ ' + dados[i].PRCMED_MES.toLocaleString("PT-BR")
+                    nProcEmbPrcAno.value   =  'R$ ' + dados[i].PRCMED_ANO.toLocaleString("PT-BR")
+                    nProcEmbVolDia.value   =  dados[i].PBRUTO_DIA.toLocaleString("PT-BR") + ' TON'
+                    nProcEmbVolMes.value   =  dados[i].PBRUTO_MES.toLocaleString("PT-BR") + ' TON'
+                    nProcEmbVolAno.value   =  dados[i].PBRUTO_ANO.toLocaleString("PT-BR") + ' TON'
+                    nProcEmbResi.value     =  dados[i].PESO_RESIDUO_MES.toLocaleString("PT-BR")
+                }
+                
+                nFatGr      = nFatGr      + dados[i].VALBRUT_GRUPO_MES
+                nTonGr      = nTonGr      + dados[i].PBRUTO_GRUPO_MES
+                nResiduoGru = nResiduoGru + dados[i].PESO_RESIDUO_GRUPO_MES
+                
+                nFatGrAno      = nFatGrAno      + dados[i].VALBRUT_GRUPO_ANO
+                nTonGrAno      = nTonGrAno      + dados[i].PBRUTO_GRUPO_ANO
+                nResiduoGruAno = nResiduoGruAno + dados[i].PESO_RESIDUO_GRUPO_ANO
+
+            }
+            nFatGrupoMes.value     = 'R$ ' + nFatGr.toLocaleString("PT-BR")
+            nTonGrupoMes.value     =  (nTonGr/1000).toLocaleString("PT-BR") + " TON"
+            nPrecoGrupoMes.value   = 'R$ ' + (nFatGr/nTonGr).toLocaleString("PT-BR")
+            nResiduoGrupoMes.value = nResiduoGru.toLocaleString("PT-BR") + " TON"          
+            nFatGrupoAno.value     = 'R$ ' + nFatGrAno.toLocaleString("PT-BR")
+            nTonGrupoAno.value     =  (nTonGrAno/1000).toLocaleString("PT-BR") + " TON"
+            nPrecoGrupoAno.value   = 'R$ ' + (nFatGrAno/nTonGrAno).toLocaleString("PT-BR")
+            nResiduoGrupoAno.value = nResiduoGruAno.toLocaleString("PT-BR") + " TON"
+        })
+
+
+         //  Dados empresas
+        BuscaDados('/Gerencial2', [
+            2
+        ])
+
+        //Processa Dados
+        request.then(dados => {  
+            for(i=0; i < dados.length; i++) {
+                if(dados[i].FILIAL == '0001'){
+                    nProcMP.value  = 'R$ ' + dados[i].VALORES2.toLocaleString("PT-BR")
+                } else if(dados[i].FILIAL == '01010101'){
+                    nAlcaMP.value  = 'R$ ' + dados[i].VALORES2.toLocaleString("PT-BR")
+                } else if(dados[i].FILIAL == '01020101'){   
+                    nProcEmbMP.value  = 'R$ ' + dados[i].VALORES2.toLocaleString("PT-BR")
+                } else if(dados[i].FILIAL == '01030101'){
+                    nAlcatecMP.value  = 'R$ ' + dados[i].VALORES2.toLocaleString("PT-BR")
+                }
+            }
+        })
+
+         //  Dados Familias Preco Medio
+        BuscaDados('/Gerencial2', [
+            3
+        ])
+
+        //Carrega API
+        request.done(dados => {             
+            if(aDados.getNumberOfRows() > 0)
+                aDados.removeRows(0, aDados.getNumberOfRows())
+            if(aDados.getNumberOfRows() > 0)
+                aDados2.removeRows(0, aDados2.getNumberOfRows())
+            if(aDados.getNumberOfRows() > 0)
+                aDados3.removeRows(0, aDados3.getNumberOfRows())
+            if(aDados.getNumberOfRows() > 0)
+                aDados4.removeRows(0, aDados4.getNumberOfRows())                                                
+        })
+
+        //Processa Dados
+        request.then(dados => { 
+            var aEmp_PROC = []
+            var aEmp_PROCEMB = []
+            var aEmp_ALCA = []
+            var aEmp_ALCATEC = []
+
+            for(i=0; i < dados.length; i++) {
+                if(dados[i].FILIAL == '0001'){                   
+                    aEmp_PROC.push( [ '0001', dados[i].DESCRICAO , dados[i].PRCKG])
+                } else if(dados[i].FILIAL == '01010101'){
+                    aEmp_ALCA.push( [ '01010101', dados[i].DESCRICAO , dados[i].PRCKG])
+                } else if(dados[i].FILIAL == '01020101'){
+                    aEmp_ALCATEC.push( [ '01020101', dados[i].DESCRICAO , dados[i].PRCKG])
+                } else if(dados[i].FILIAL == '01030101'){
+                    aEmp_PROCEMB.push( [ '01030101', dados[i].DESCRICAO , dados[i].PRCKG])
+                }
+            }
+
+            aDados.addRows(aEmp_PROC.length)
+            aDados2.addRows(aEmp_PROCEMB.length)
+            aDados3.addRows(aEmp_ALCA.length)
+            aDados4.addRows(aEmp_ALCATEC.length)
+        
+            for(i=0; i < aEmp_PROC.length; i++) {                
+                aDados.setCell(i, 0, '', aEmp_PROC[i][1], { style: ' font-weight:bold' })
+                aDados.setCell(i, 1,  0, 'R$ ' + aEmp_PROC[i][2].toLocaleString("PT-BR"), { style: 'font-weight:bold; text-align:right' })
+            }
+
+            for(i=0; i < aEmp_PROCEMB.length; i++) {                
+                aDados2.setCell(i, 0, '', aEmp_PROCEMB[i][1], { style: ' font-weight:bold' })
+                aDados2.setCell(i, 1,  0, 'R$ ' + aEmp_PROCEMB[i][2].toLocaleString("PT-BR"), { style: 'font-weight:bold; text-align:right' })
+            }
+
+
+            for(i=0; i < aEmp_ALCA.length; i++) {                
+                aDados3.setCell(i, 0, '', aEmp_ALCA[i][1], { style: ' font-weight:bold' })
+                aDados3.setCell(i, 1,  0, 'R$ ' + aEmp_ALCA[i][2].toLocaleString("PT-BR"), { style: 'font-weight:bold; text-align:right' })
+            }
+
+
+            for(i=0; i < aEmp_ALCATEC.length; i++) {                
+                aDados4.setCell(i, 0, '', aEmp_ALCATEC[i][1], { style: ' font-weight:bold' })
+                aDados4.setCell(i, 1,  0, 'R$ ' + aEmp_ALCATEC[i][2].toLocaleString("PT-BR"), { style: 'font-weight:bold; text-align:right' })
+            }
+
+            cDados.draw(aDados, options); 
+            cDados2.draw(aDados2, options); 
+            cDados3.draw(aDados3, options); 
+            cDados4.draw(aDados4, options); 
+        })
+
+
+    }
+    
+    setTimeout(function() {
+        CarregaDados()
+    }, 900)
+
+    // Fecha div de carregando
+    jQuery("#loader").fadeOut("slow");
+    jQuery("#loader2").fadeOut("slow");
+
+</script>
+
+
+<style>
+  .FixTela {
+    position: fixed;
+    z-index: 1; /* Quantidade de DIV`s acima dessa */
+    
+    display: inline ;
+  }
+  .FixTela2 {
+    position: fixed;
+    z-index: 1; /* Quantidade de DIV`s acima dessa */
+    margin-top: 0.2%;
+    margin-left: 1.7%;
+    display: inline ;
+  }
+  .FixTela3 {
+    position: fixed;
+    z-index: 1; /* Quantidade de DIV`s acima dessa */
+    margin-top: 0.2%;
+    margin-left: 24.7%;
+    display: inline ;
+  }
+  .FixTela4 {
+    position: fixed;
+    z-index: 1; /* Quantidade de DIV`s acima dessa */
+    margin-top: 0.2%;
+    margin-left: 47.7%;
+    display: inline ;
+  }
+  .FixTela5 {
+    position: fixed;
+    z-index: 1; /* Quantidade de DIV`s acima dessa */
+    margin-top: 0.2%;
+    margin-left: 70.7%;
+    display: inline ;
+  }
+  
+  #interna {
+margin: 0 auto;
+width: 50%; /* Valor da Largura */
+}
+</style>
+

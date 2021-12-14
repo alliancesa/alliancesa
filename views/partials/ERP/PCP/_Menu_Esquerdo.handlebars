@@ -1,0 +1,37 @@
+  
+
+
+    <div class="leftMenuHeader">                
+        <li>
+            <a href="/">
+                <i class="fa fa-hand-holding-usd"></i>
+                <span>ERP / PCP</span>
+            </a>
+        </li>
+    </div>
+    <pre></pre>
+    <li>
+        <a href="#"class="dropdown">
+            <span></span><i class="fas fa-file-alt"></i>
+            <span class="nav-text"><strong>RELATÓRIOS</strong></span>
+        </a> 
+        <ul class="dropdownlist">
+            {{#foreach aRotina}}
+                {{#if_eq this 'ERP_Perdas'}}
+                    <li><a href="/ERP/PCP/Relatorios/Perdas"><span></span><span></span><i class="fas fa-landmark"></i><span>Relatórios de Perdas</span></a></li>          
+                {{/if_eq}}      
+                {{#if_eq this 'ERP_BuscaMateria'}}
+                    <li><a href="/ERP/PCP/Relatorios/BuscaMateria"><span></span><span></span><i class="fas fa-landmark"></i><span>Busca Materia</span></a></li>          
+                {{/if_eq}}      
+                {{#if_eq this 'ERP_Programacoes'}}
+                    <li><a href="/ERP/PCP/Relatorios/Programacoes"><span></span><span></span><i class="fas fa-landmark"></i><span>Programações</span></a></li>          
+                {{/if_eq}}      
+                {{#if_eq this 'ERP_RelVendRealPCP'}}
+                    <li><a href="/ERP/PCP/Relatorios/RelVendRealPCP"><span></span><span></span><i class="fas fa-landmark"></i><span>Orçamento Vs Faturamento</span></a></li>
+                {{/if_eq}}      
+                {{#if_eq this 'ERP_RelRealVSStandard'}}
+                    <li><a href="/ERP/PCP/Relatorios/RelRealVSStandard"><span></span><span></span><i class="fas fa-landmark"></i><span>Real VS Standard</span></a></li>
+                {{/if_eq}}         
+            {{/foreach}}                    
+        </ul>
+    </li>

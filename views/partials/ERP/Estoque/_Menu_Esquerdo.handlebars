@@ -1,0 +1,85 @@
+|  
+    <div class="leftMenuHeader">                
+        <li>
+            <a href="/">
+                <i class="fa fa-shuttle-van"></i>
+                <span>ERP / ESTOQUE</span>
+            </a>
+        </li>
+    </div>
+    <pre>   </pre>
+     {{#foreach aRotina}}
+        {{#if_eq this 'ERP_GeraInvent'}}  
+            <li>
+                <a href="/ERP/Estoque/GeraInvent">
+                    <span></span>
+                    <i class="fas fa-building"></i>
+                    <span class="nav-text">Gera Inventários</span>
+                </a>
+            </li>  
+            <pre></pre>
+        {{/if_eq}}
+
+        {{#if_eq this 'ERP_ConfMP'}}            
+            <li>
+                <a href="/ERP/Estoque/ConfMP">
+                    <span></span>
+                    <i class="fas fa-building"></i>
+                    <span class="nav-text">Conferência Matéria-Prima</span>
+                </a>
+            </li>
+            <pre></pre>                           
+        {{/if_eq}}
+        {{#if_eq this 'ERP_ConfEst'}} 
+            <li>
+                <a href="/ERP/Estoque/ConfEst">
+                    <span></span>                    
+                    <i class="fas fa-building"></i>
+                    <span class="nav-text">Conferência Estoque</span>
+                </a>
+            </li>
+            <pre></pre>               
+        {{/if_eq}}
+    {{/foreach}}
+    <pre></pre>
+    <li>
+        <a href="#"class="dropdown">
+            <span></span><i class="fas fa-file-alt"></i>
+            <span class="nav-text"><strong>RELATÓRIOS</strong></span>
+        </a> 
+        <ul class="dropdownlist">
+            {{#foreach aRotina}}
+                {{#if_eq this 'ERP_HistIndProd'}}
+                    <li><a href="/ERP/Estoque/Relatorios/HistIndProd"><span></span><span></span><i class="fas fa-truck-moving"></i><span>Histórico Indicadores Produção</span></a></li> 
+                {{/if_eq}}         
+                {{#if_eq this 'ERP_GastosProd'}}
+                    <li><a href="/ERP/Estoque/Relatorios/GastosProd"> <span></span><span></span><i class="fas fa-truck-moving"></i><span></span>Gastos Gerais de Fabricação</span></a></li>
+                {{/if_eq}}         
+                {{#if_eq this 'ERP_ProdDiaSetor'}}
+                    <li><a href="/ERP/Estoque/Relatorios/ProdDiaSetor"> <span></span><span></span><i class="fas fa-truck-moving"></i><span></span>Produção Diária por Setor</span></a></li>
+                {{/if_eq}}         
+                {{#if_eq this 'ERP_RelEtqValidas'}}                    
+                    <li><a href="/ERP/Estoque/Relatorios/RelEtqValidas"> <span></span><span></span><i class="fas fa-truck-moving"></i><span></span>Rel. Etiquetas Válidas</span></a></li>
+                {{/if_eq}}         
+                {{#if_eq this 'ERP_RelGerInventario'}}                    
+                    <li><a href="/ERP/Estoque/Relatorios/RelGerInventario"> <span></span><span></span><i class="fas fa-truck-moving"></i><span></span>Rel. Geração de Inventário</span></a></li>
+                {{/if_eq}}         
+                {{#if_eq this 'ERP_ProdSetor'}}                    
+                    <li><a href="/ERP/Estoque/Relatorios/ProdSetor"> <span></span><span></span><i class="fas fa-truck-moving"></i><span></span>Produções por Setores</span></a></li>
+                {{/if_eq}}         
+                {{#if_eq this 'ERP_ControleProducao'}}                    
+                    <li><a href="/ERP/Estoque/Relatorios/ControleProducao"> <span></span><span></span><i class="fas fa-truck-moving"></i><span></span>Controle de Produções</span></a></li>
+                {{/if_eq}}         
+                {{#if_eq this 'ERP_CustoMOD'}}                    
+                    <li><a href="/ERP/Estoque/Relatorios/CustoMOD"> <span></span><span></span><i class="fas fa-truck-moving"></i><span></span>Rel. Custo MOD</span></a></li>
+                {{/if_eq}}       
+                {{#if_eq this 'ERP_RelCustoManu'}}                    
+                    <li><a href="/ERP/Estoque/Relatorios/RelCustoManu"> <span></span><span></span><i class="fas fa-truck-moving"></i><span></span>Rel. Custo Manutenção</span></a></li>
+                {{/if_eq}}     
+
+                {{#if_eq this 'ERP_RelMovAlmox'}}                    
+                    <li><a href="/ERP/Estoque/Relatorios/RelMovAlmox"> <span></span><span></span><i class="fas fa-truck-moving"></i><span></span>Rel. Movimentações Almox</span></a></li>
+                {{/if_eq}}        
+            {{/foreach}}
+        </ul>
+    </li>

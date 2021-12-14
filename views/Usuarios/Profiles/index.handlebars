@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="container">
+        <div class="card border shadow h-100 py-2">
+            <div class="card-body">
+                {{#each aProfiles}}
+                <form action="/Usuarios/Profiles" method="post">
+                    <label>
+                        <strong>Dados Usuários</strong>
+                    </label>
+                    <hr>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr scope="col">
+                                <td>
+                                    <pre>Código: </pre>
+                                </td>
+                                <td><input type="text" class="form-control" value="{{id}}" disabled></td>
+                            </tr>
+                            <tr scope="col">
+                                <td>
+                                    <pre>Nome: </pre>
+                                </td>
+                                <td><input type="text" class="form-control" value="{{Nome}}" id="nome" name="nome"></td>
+                            </tr>
+                            <tr scope="col">
+                                <td>
+                                    <pre>E-Mail: </pre>
+                                </td>
+                                <td><input type="text" class="form-control" value="{{Email}}" disabled></td>
+                            </tr>
+                            <tr scope="col">
+                                <td>
+                                    <pre>Usuário ERP: </pre>
+                                </td>
+                                <td><input type="text" class="form-control" value="{{UserERP}}" id="UserERP"
+                                        name="UserERP"></td>
+                            </tr>
+                            <tr scope="col">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr scope="col">
+                                <td>
+                                    <pre>Senha: </pre>
+                                </td>
+                                <td><input type="password" class="form-control" id="senha" name="senha"></td>
+                            </tr>
+                            <tr scope="col">
+                                <td>
+                                    <pre>Repetir Senha: </pre>
+                                </td>
+                                <td><input type="password" class="form-control" id="senha2" name="senha2"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pre>* Preecha os campos "Senha" e "Repetir Senha" se desejar realizar a alteração de sua senha.</pre>
+                    <div align="right">
+                    <div>
+                        <input type="hidden" class="form-control" value="{{id}}" id="id" name="id">
+                        <button class="btn btn-outline-warning btn-sm" id="Imp">Alterar</button>
+                        <pre></pre>
+                    </div>
+                </div>
+            </div>
+
+            </form>
+            {{/each}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+
+
+{{#if aEsqueci}}
+    <div class="alert alert-success" align="center">E-Mail enviado com sucesso, favor verificar sua caixa de entrada.</div>
+{{else}}
+    {{#if aEsqueciOK}}
+        <div class="alert alert-success" align="center">Redefinição de senha realizado com sucesso, será enviado um e-mail com sua nova senha. </div>
+    {{else}}
+        {{#if aEsqueciNC}}
+            <div class="alert alert-danger" align="center">chave não encontrada. </div>
+        {{else}}
+            <div class="container-fluid"  align="center">
+                <div class="card" style="width: 24rem;">
+                    <div class="card-body">
+                        <label>
+                            <strong>Recuperar Senha</strong>
+                        </label>
+                        <hr>
+                        <div  align="left">
+                            <form action="Esqueci" method="post">
+                                <div><pre>E-Mail: </pre></div>
+                                <div>
+                                    <input type="text" class="form-control" id="email" name="email">
+                                </div>
+                                <pre></pre>
+                                <div>
+                                    <button class="btn btn-primary" type="submit">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </br>
+            </div>
+        {{/if}}
+    {{/if}}
+{{/if}}

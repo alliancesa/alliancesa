@@ -1,0 +1,385 @@
+<div class="container-fluid" id="tabela">
+    </br>
+
+    <div class="card card-body shadow" >
+        <div class="row">
+            <pre>   </pre>
+            <div class="col-3">
+                <pre></pre>
+                <label><strong>Lista Usuários</strong></label>
+                <div class="card CardA" id="DropA">
+                    {{#each aUsuarios}}
+                        <div class="card btn-dark bt-sm" id="{{id}}">&nbsp;- {{Nome}}</div>           
+                    {{/each}}     
+                </div>
+                <pre>   </pre>
+            </div> 
+            <pre>   </pre>
+            <div class="col-5">
+                <pre></pre>
+                <pre>   </pre>
+
+                <label><strong>Usuários</strong></label>
+                <div class="card" id="DropB">
+                    <pre id="usuario"></pre>
+                </div>
+                <pre>   </pre>
+                <label><strong>Acessos</strong></label>
+                <div class="card" id="dTabela">
+                    <pre></pre>
+                   
+                </div>
+            </div>
+            
+        </div>
+        <pre></pre>
+        <div id="Atencao" align="center"></div>
+        <div align="right">
+            <button type="submit" class="btn btn-success bt-sm" onclick="GravaAcessos()">Alterar</button>
+        </div>
+    </div>
+
+    </br>
+</div>
+
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      
+<script>
+    DivTituloTexto.innerText = "Liberações de Acessos"
+    DivTitulo.setAttribute("class", "card shadow border-central")
+
+    $(function() {
+        $( "#DropA, #DropB" ).sortable({
+            connectWith: "#DropA, #DropB"
+            ,dropOnEmpty: true
+        });
+        
+    
+        $("#DropB").sortable({
+            receive : function (event, ui) {
+                var $this = $(this);
+                if ($this.children('div').length > 1 && $this.attr('div') != "DropB") {
+                    $(ui.sender).sortable('cancel');
+                    usuario.innerHTML = ' Somente um usuário por vez permitido!'
+
+                } else {
+                    CarregaDados();                
+                }
+            }
+            ,remove: function( event, ui ) {
+                location.reload()
+            }
+        });
+        
+    });
+
+    google.charts.setOnLoadCallback(CarregaTabela); 
+
+    function CarregaTabela() {
+        aDados = new google.visualization.DataTable();
+        
+        aDados.addColumn('string', '');            //00 Tipo
+        aDados.addColumn('string', "Modulo");      //01 Modulo
+        aDados.addColumn('string', "Rotina");      //02 Relatórios
+        aDados.addColumn('string', "Descrição");   //03 Descricao
+        aDados.addColumn('string', "Programa");    //04 Rotina
+        aDados.addColumn('string', "Visualizar");  //05 Liberação
+        aDados.addColumn('string', "Adicionar");   //06 Adicionar
+        aDados.addColumn('string', "Alterar");     //07 Alterar
+        aDados.addColumn('string', "Remover");     //08 Remover
+
+
+        var cssClassNames = {
+            'headerRow': 'default-font bold-font a center-text fundo-table-background-padrao '
+            ,'tableRow': 'false'
+            ,'oddTableRow': ''
+            //,'selectedTableRow': 'orange-background large-font'
+            ,'hoverTableRow': 'false'
+            ,'headerCell': ''
+            ,'tableCell': 'default-font'
+            ,'rowNumberCell': 'underline-blue-font'
+        }
+
+        options  = {
+            showRowNumber: false
+            ,width: '100%'
+            ,height: '100%'
+            ,allowHtml: true
+            ,sort: false
+            ,'cssClassNames': cssClassNames
+        }
+
+        cDados = new google.visualization.Table(document.getElementById('dTabela'));
+        cDados.draw(aDados, options); 
+
+    }
+
+    function CarregaDados(){
+        
+        BuscaDados('/Admin/Acessos/List', [
+            1
+            ,document.querySelectorAll("#DropB")[0].firstElementChild.id 
+        ])
+
+         //Carrega API
+        request.done(dados => {              
+            if(aDados.getNumberOfRows() > 0)
+                aDados.removeRows(0, aDados.getNumberOfRows())
+        })
+
+        //Processa Dados
+        request.then(dados => {  
+
+            var nX = 0
+            var cTipo = ''
+            var cMod  = ''
+            var cRel  = ''
+                
+            // Conta Tamanho da tabela
+            for(i=0; i < dados.length; i++) {
+                if(i == 0){
+                    nX++                                      
+                    nX++    
+                    cTipo = dados[i].TIPO
+                    cMod  = dados[i].MODULO
+                    cRel = ''
+                } else {
+                    if(cMod != dados[i].MODULO ){
+                        if(cTipo != dados[i].TIPO) {
+                            nX++
+                            cTipo = dados[i].TIPO
+                            cRel = ''
+                        }               
+                        nX++    
+                        cMod  = dados[i].MODULO
+                        cRel = ''
+                    }
+
+                }
+                if(dados[i].RELATORIO == 'N'){
+                    cRel = ''
+                } else {
+                    if(cRel == ''){
+                        nX++ 
+                    }
+                    cRel = 'S'
+                }
+                nX++
+            }
+
+            aDados.addRows(nX)
+            
+            nX = 0
+            cTipo = ''
+            cMod  = ''
+            cRel  = ''
+
+            for(i=0; i < dados.length; i++) {
+                if(i == 0){
+                    aDados.setCell(nX,  0, '', dados[i].TIPO, { style: "font-weight:bold; text-align: center"  })
+                    aDados.setCell(nX,  5, '', ' <input type="checkbox" name="Visualizar" id="_Visualizar" onclick="Visualizar()" > ', { style: "font-weight:bold; text-align: center"  })  //04 Liberação
+                    aDados.setCell(nX,  6, '', ' <input type="checkbox" name="Adicionar" id="_Adicionar" onclick="Adicionar()" > ', { style: "font-weight:bold; text-align: center"  })   //05 Adicionar
+                    aDados.setCell(nX,  7, '', ' <input type="checkbox" name="Alterar" id="_Alterar" onclick="Alterar()" > ', { style: "font-weight:bold; text-align: center"  })     //05 Adicionar
+                    aDados.setCell(nX,  8, '', ' <input type="checkbox" name="Remover" id="_Remover" onclick="Remover()" > ', { style: "font-weight:bold; text-align: center"  })     //05 Adicionar
+
+                    nX++                   
+                    aDados.setCell(nX,  1, '', dados[i].MODULO, { style: "color: white; font-weight:bold; text-align: center; background-color: rgba(88, 0, 240, 0.5)" })                 
+                    aDados.setCell(nX,  2, "", " ", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5)" })
+                    aDados.setCell(nX,  3, "", " ", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5)" })
+                    aDados.setCell(nX,  4, "", " ", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5)" })
+                    aDados.setCell(nX,  6, "", "Adicionar", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5); font-weight:bold; color: white" })
+                    aDados.setCell(nX,  7, "", "Alterar"  , { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5); font-weight:bold; color: white" })
+                    aDados.setCell(nX,  8, "", "Remover"  , { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5); font-weight:bold; color: white" })
+
+                    // Opção Liberação   
+                    aDados.setCell(nX,  5, "", "Visualizar", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5); font-weight:bold; color: white" })
+
+                    nX++    
+                    cTipo = dados[i].TIPO
+                    cMod  = dados[i].MODULO
+                    cRel = ''
+                } else {
+                    if(cMod != dados[i].MODULO ){
+                        if(cTipo != dados[i].TIPO) {
+                            aDados.setCell(nX,  0, '' ,dados[i].TIPO, { style: "font-weight:bold; text-align: center"  })
+                            nX++
+                            cTipo = dados[i].TIPO
+                            cRel = ''
+                        }               
+                        aDados.setCell(nX,  1, '', dados[i].MODULO, { style: "color: white; font-weight:bold; text-align: center; background-color: rgba(88, 0, 240, 0.5)" })           
+                        aDados.setCell(nX,  2, "", " ", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5)" })
+                        aDados.setCell(nX,  3, "", " ", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5)" })
+                        aDados.setCell(nX,  4, "", " ", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5)" })
+                        aDados.setCell(nX,  6, "", "Adicionar", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5); font-weight:bold; color: white" })
+                        aDados.setCell(nX,  7, "", "Alterar"  , { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5); font-weight:bold; color: white" })
+                        aDados.setCell(nX,  8, "", "Remover"  , { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5); font-weight:bold; color: white" })
+
+                        // Opção Liberação         
+                        aDados.setCell(nX,  5, "", "Visualizar", { style: "text-align: center; background-color: rgba(88, 0, 240, 0.5); font-weight:bold; color: white" })
+
+                        nX++    
+                        cMod  = dados[i].MODULO
+                        cRel = ''
+                    }
+
+                }
+                if(dados[i].RELATORIO == 'N'){
+                    aDados.setCell(nX,  4, '', dados[i].ROTINA, { style: "text-align: center" })
+                    aDados.setCell(nX,  2, '', dados[i].DESCRICAO )
+                    cRel = ''
+                } else {
+                    if(cRel == ''){
+                        aDados.setCell(nX,  2, '', 'Relatórios', { style: "font-weight:bold; text-align: right" })
+                        nX++ 
+                    }
+                    aDados.setCell(nX,  4, '', dados[i].ROTINA, { style: "text-align: center" })
+                    aDados.setCell(nX,  3, dados[i].DESCRICAO)
+                    cRel = 'S'
+                }
+                
+                // Opção Liberação         
+                var cInput = ''
+                if(dados[i].VISUALIZAR == 'X'){
+                    cInput = ' <div> <input type="checkbox" name="Visu" id="Visu_' + dados[i].ID +'"checked> </div> '           
+                } else {
+                    cInput = ' <div> <input type="checkbox" name="Visu" id="Visu_' + dados[i].ID +'"> </div> '           
+                }
+                aDados.setCell(nX,  5, "", cInput, { style: "text-align: center" })
+
+                cInput = ''
+                if(dados[i].ADICIONAR == 'X'){
+                    cInput = ' <div> <input type="checkbox" name="Adic" id="Adic_' + dados[i].ID +'"checked> </div> '           
+                } else {
+                    cInput = ' <div> <input type="checkbox" name="Adic" id="Adic_' + dados[i].ID +'"> </div> '           
+                }
+                aDados.setCell(nX,  6, "", cInput, { style: "text-align: center" })
+
+                cInput = ''
+                if(dados[i].ALTERAR == 'X'){
+                    cInput = ' <div> <input type="checkbox" name="Alt" id="Alt_' + dados[i].ID +'"checked> </div> '           
+                } else {
+                    cInput = ' <div> <input type="checkbox" name="Alt" id="Alt_' + dados[i].ID +'"> </div> '           
+                }
+                aDados.setCell(nX,  7, "", cInput, { style: "text-align: center" })
+
+                cInput = ''
+                if(dados[i].REMOVER == 'X'){
+                    cInput = ' <div> <input type="checkbox" name="Rem" id="Rem_' + dados[i].ID +'"checked> </div> '           
+                } else {
+                    cInput = ' <div> <input type="checkbox" name="Rem" id="Rem_' + dados[i].ID +'"> </div> '           
+                }
+                aDados.setCell(nX,  8, "", cInput, { style: "text-align: center" })                
+                nX++
+            }
+
+            cDados.draw(aDados, options); 
+        })
+    }
+
+    function GravaAcessos() {
+        var aInputs_ = []
+        var aInputs = document.querySelectorAll("input")
+        var aItens  = []
+
+        var i = 4
+
+        while (aInputs.length-4 != aInputs_.length){
+            if(i <= aInputs.length){
+                if(aInputs[i] == undefined){
+                    break;
+                }
+
+                aItens = []
+
+                aItens.push( [ aInputs[i].id   , aInputs[i].checked ] )
+                aItens.push( [ aInputs[i+1].id , aInputs[i+1].checked ] )
+                aItens.push( [ aInputs[i+2].id , aInputs[i+2].checked ] )
+                aItens.push( [ aInputs[i+3].id , aInputs[i+3].checked ] )
+                aItens.push( [ aInputs[i+3].id.split("_")[1] ] )
+
+                aInputs_.push(aItens)                
+            }
+            i += 4
+        }
+
+        BuscaDados('/Admin/Acessos/List', [
+            3
+            ,document.querySelectorAll("#DropB div")[0].id
+            ,aInputs_
+        ])
+
+        //Processa Dados
+        request.then(dados => {  
+            if(dados[0].OK == 'S'){
+                setTimeout(function() {
+                    location.reload()
+                }, 1000)
+            } else {
+                
+                alert("Houve um erro ao gravar as permisões")
+
+                setTimeout(function() {
+                    location.reload()
+                }, 1000)
+            }
+        })
+    }
+
+    function Visualizar(){
+        var aVisu = document.getElementsByName("Visu")
+        
+        for(i=0; i < aVisu.length; i++) {               
+            if(_Visualizar.checked == true){
+                aVisu[i].checked = true
+            } else {
+                aVisu[i].checked = false
+            }
+        }
+    }
+
+    function Adicionar(){
+        var aAdic = document.getElementsByName("Adic")
+        
+        for(i=0; i < aAdic.length; i++) {                    
+            if(_Adicionar.checked == true){
+                aAdic[i].checked = true
+            } else {
+                aAdic[i].checked = false
+            }
+        }
+    }
+
+    function Alterar(){
+        var aAlt = document.getElementsByName("Alt")
+        
+        for(i=0; i < aAlt.length; i++) {
+            if(_Alterar.checked == true){        
+                aAlt[i].checked = true
+            } else {
+                aAlt[i].checked = false
+            }
+        }
+    }
+
+    function Remover(){
+        var aRem = document.getElementsByName("Rem")
+        
+        for(i=0; i < aRem.length; i++) {
+            if(_Remover.checked == true){
+                aRem[i].checked = true
+            } else {
+                aRem[i].checked = false
+            }
+        }
+    }
+    
+</script>
+
+<style type="text/css">
+    /*
+    #Drop-D { position: fixed; left: 65% }
+    #tabela { width: 100%; height:3000px; }
+    */
+</style>

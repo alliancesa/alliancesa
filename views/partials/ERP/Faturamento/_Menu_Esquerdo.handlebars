@@ -1,0 +1,44 @@
+
+    
+    <div class="leftMenuHeader">                
+        <li>
+            <a href="/">
+                <i class="fa fa-money-bill-wave"></i>
+                <span>ERP / FATURAMENTO</span>
+            </a>
+        </li>
+    </div>
+    <pre></pre>
+    <li>
+        <a href="/ERP/Faturamento">
+            <span></span>
+            <i class="fas fa-building"></i>
+            <span class="nav-text">Faturamento</span>
+        </a>
+    </li>  
+    
+    <li>
+        <a href="#"class="dropdown">
+            <span></span><i class="fas fa-file-alt"></i>
+            <span class="nav-text"><strong>RELATÓRIOS</strong></span>
+        </a> 
+        <ul class="dropdownlist">
+            {{#foreach aRotina}}
+                {{#if_eq this 'ERP_RelMetaPorDia'}}
+                    <li><a href="/ERP/Faturamento/Relatorios/RelMetaPorDia"><span></span><span></span><i class="fas fa-landmark"></i><span>Meta por Dia</span></a></li>          
+                {{/if_eq}}
+                {{#if_eq this 'ERP_RelVendasRealizar'}}
+                    <li><a href="/ERP/Faturamento/Relatorios/RelVendasRealizar"><span></span><span></span><i class="fas fa-landmark"></i><span>Orçamento Vs Faturamento</span></a></li>          
+                {{/if_eq}}
+                {{#if_eq this 'ERP_RelPesoFat'}}                    
+                    <li><a href="/ERP/Faturamento/Relatorios/RelPesoFat"><span></span><span></span><i class="fas fa-landmark"></i><span>Peso Vs Faturamento</span></a></li>          
+                {{/if_eq}}
+                {{#if_eq this 'ERP_CustoVenda'}}                                        
+                    <li><a href="/ERP/Faturamento/Relatorios/CustoVenda"><span></span><span></span><i class="fas fa-landmark"></i><span></span>Margem de Contribuição</span></a></li>  
+                {{/if_eq}}
+                {{#if_eq this 'ERP_FatResiduo'}}                                        
+                    <li><a href="/ERP/Faturamento/Relatorios/FatResiduo"><span></span><span></span><i class="fas fa-landmark"></i><span></span>Vendas Residuos</span></a></li>  
+                {{/if_eq}}         
+            {{/foreach}}                
+        </ul>
+    </li>

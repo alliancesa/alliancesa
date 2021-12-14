@@ -1,0 +1,47 @@
+    {{#each erros}}
+        <div class="alert alert-danger"> {{texto}} </div>
+    {{else}}
+
+    {{/each}}
+
+    <form action="/admin/empresas/add" method="POST">
+        <label><strong>Cadastro de Empresas</strong></label>
+        <div class="card">
+            <div class="card-body">
+                <div>   
+                    <label>Código</label>
+                    <div id="Codigos">
+                        <input type="text" name="Codigo" id="Codigo" class="form-control" placeholder="Código" onchange="BuscaCodigo()">
+                    </div>
+                </div>
+                <div>   
+                    <label>Descrição</label>
+                    <input type="text" name="Descricao" class="form-control" placeholder="Descrição">
+                </div>
+                <p></p>
+                <div>   
+                    <button id="Cadastrar" type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </div>
+        </div>        
+    </form>
+
+<script>
+    function BuscaCodigo() {
+        $.ajax(
+        {
+            url: '/Admin/Empresas/Codigo/' + Codigo.value ,
+            type: "get",
+
+            success: function (aDados) {
+               if(aDados.length>0){
+                    Codigo.className= "form-control alert-danger"
+                    Cadastrar.disabled = true
+               } else {
+                    Codigo.className= "form-control"
+                    Cadastrar.disabled = false
+               }
+            }
+        })
+    }
+</script>

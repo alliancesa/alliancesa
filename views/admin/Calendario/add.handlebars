@@ -1,0 +1,248 @@
+<div class="container-fluid">
+    <div class="card border shadow  empresa-fundo border-left-primary border-right-primary col-lg-6">
+        <pre></pre>
+        <div class="card-menu">CADASTRO DE ACESSOS
+            <pre></pre>
+        </div>
+    </div>
+    </br>
+
+    <div class="card card-body shadow">
+        <div class="row">
+            <pre>   </pre>
+            <div class="col-3">
+                <pre></pre>
+                <label><strong>Lista Usuários</strong></label>
+                <div class="card CardA" id="DropA">
+                    {{#each aUsuarios}}
+                        <div class="card btn-dark bt-sm" id="{{id}}">&nbsp;- {{Nome}}</div>           
+                    {{/each}}     
+                </div>
+                <pre>   </pre>
+            </div> 
+            <pre>   </pre>
+            <div class="col-4">
+                <pre></pre>
+                <label><strong>Usuários</strong></label>
+                <div class="card" id="DropB">
+                    <pre id="usuario"></pre>
+                </div>
+                <pre>   </pre>
+                <label><strong>Acessos</strong></label>
+                <div class="card" id="DropC">
+                    <pre></pre>
+                    {{#each aMOD}}
+                        <pre id="DropC_{{Codigo}}"><strong>- {{Descricao}}</strong></pre>
+                    {{/each}}
+                </div>
+            </div>
+            <pre>   </pre>
+            <div class="col-4">
+                <pre></pre>
+                <label><strong>Liberações</strong></label>
+                <pre></pre>
+                <div class="card" id="DropD">
+                    <pre></pre>
+                    {{#each aMOD}}
+                        <pre class="border" id="DropD_{{Codigo}}"><strong>- {{Descricao}}</strong>  </pre>
+                    {{/each}}
+                </div>
+                <pre>   </pre>
+            </div>
+        </div>
+        <pre></pre>
+        <div id="Atencao" align="center"></div>
+        <div align="right">
+            <button type="submit" class="btn btn-success bt-sm" onclick="GravaAcessos()">Adicionar</button>
+        </div>
+    </div>
+
+    </br>
+<!--
+    <div class="card">
+        <div class="card-header">Cadastro de Acessos</div>
+        <div class="card border shadow h-100 py-2">
+            <div class="card-body">
+                <form action="/admin/Acessos/add" method="post">
+                    <label>Usuários</label>
+                    <select class="form-control" id="Usuarios" placeholder="Usuarios" name="Usuarios" required>
+                        <option value=""></option>
+                        {{#each aUsuarios}}
+                            <option value="{{id}}">{{Nome}}</option>
+                        {{/each}}                    
+                    </select>
+                    <pre></pre>
+                    <select class="form-control" id="Codigos" placeholder="Codigos" name="Codigos" required>
+                        <option value=""></option>
+                        {{#each aModulos}}
+                            <option value="{{Codigo}}{{SubCodigo}}">{{Descricao}} -> {{Descricao2}}</option>
+                        {{/each}}                
+                    </select>
+                    <pre></pre>
+                    <div class="form-check">                    
+                        <input class="form-check-input" type="checkbox" name="Adicionar" id="Adicionar">
+                        <label class="form-check-label" for="defaultCheck1"><pre>Adicionar    </pre></label>
+
+                        <input class="form-check-input" type="checkbox" name="Alterar" id="Alterar">
+                        <label class="form-check-label" for="defaultCheck1"><pre>Alterar    </pre></label>
+
+                        <input class="form-check-input" type="checkbox" name="Remover" id="Remover">
+                        <label class="form-check-label" for="defaultCheck1"><pre>Remover    </pre></label>
+
+                        <input class="form-check-input" type="checkbox" name="Visualizar" id="Visualizar">
+                        <label class="form-check-label" for="defaultCheck1"><pre>Visualizar    </pre></label>
+                    </div>
+                    <pre></pre>
+                    <div align="right">
+                        <button type="submit" id="button" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+-->
+</div>
+
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      
+<script>
+
+    $(function() {
+        $( "#DropA, #DropB" ).sortable({
+            connectWith: "#DropA, #DropB"
+            ,dropOnEmpty: true
+        });
+        
+        {{#each aMOD}}
+            $( "#DropC_{{Codigo}}, #DropD_{{Codigo}}" ).sortable({
+                connectWith: "#DropC_{{Codigo}}, #DropD_{{Codigo}}"
+                ,dropOnEmpty: true
+            });
+        {{/each}}
+
+        $("#DropB").sortable({
+            receive : function (event, ui) {
+                var $this = $(this);
+                if ($this.children('div').length > 1 && $this.attr('div') != "DropB") {
+                    $(ui.sender).sortable('cancel');
+                    usuario.innerHTML = ' Somente um usuário por vez permitido!'
+
+                } else {
+                    Carrega();                
+                }
+            }
+            ,remove: function( event, ui ) {
+                location.reload()
+            }
+        });
+        
+    });
+
+    function Carrega() {
+        $.ajax({
+            url: '/admin/Acessos/list'
+            ,data: { 
+                nTipo: 1
+                ,ID_User: document.querySelectorAll("#DropB")[0].firstElementChild.id 
+            }
+            ,type: "post"
+            ,success : function(dados) {                
+                for (i = 0; i < dados.length; i++) {
+                    //x será um array pois pode haver mais de uma classe
+                    var x = document.getElementById("DropC_" + dados[i].Codigo );
+                    //cria um elemento "div" e seta uma classe "tudo"
+                    var div = document.createElement('div');
+                    //adiciona os atributos dentro da nova "div"
+                    div.setAttribute('class', 'card btn-dark bt-sm');
+                    //adiciona o id dentro da nova div
+                    div.id = "Lib_" + dados[i].Codigo+dados[i].SubCodigo; 
+                    //adiciona o html dentro da nova "div"
+                    div.innerHTML = '&nbsp;&nbsp - ' + dados[i].Descricao2
+                    //anexa a "div" criada com o novo conteúdo 
+                    //dentro da "div" classe "corpo"
+                    x.appendChild(div)
+                }
+            }
+        })
+
+        $.ajax({
+            url: '/admin/Acessos/list'
+            ,data: { 
+                nTipo: 2
+                ,ID_User: document.querySelectorAll("#DropB")[0].firstElementChild.id 
+            }
+            ,type: "post"
+            ,success : function(dados) {                
+                for (i = 0; i < dados.length; i++) {
+                    //x será um array pois pode haver mais de uma classe
+                    var x = document.getElementById("DropD_" + dados[i].Codigo );
+                    //cria um elemento "div" e seta uma classe "tudo"
+                    var div = document.createElement('div');
+                    //adiciona os atributos dentro da nova "div"
+                    div.setAttribute('class', 'card btn-dark bt-sm');
+                    //adiciona o id dentro da nova div
+                    div.id = "Lib_" + dados[i].Codigo+dados[i].SubCodigo; 
+                    //adiciona o html dentro da nova "div"
+                    div.innerHTML = '&nbsp;&nbsp - ' + dados[i].Descricao2
+                    //anexa a "div" criada com o novo conteúdo 
+                    //dentro da "div" classe "corpo"
+                    x.appendChild(div)
+                }
+            }
+        })
+    }
+
+    function GravaAcessos() {
+        var aDados = []
+        for(let i = 0; i < document.querySelectorAll("#DropD pre div").length; i++) {
+            aDados.push(document.querySelectorAll("#DropD pre div")[i].id.substring(4,10))
+        }
+
+        $.ajax({
+            url: '/admin/Acessos/list'
+            ,data: { 
+                nTipo: 3
+                ,cUsuario: document.querySelectorAll("#DropB div")[0].id
+                //,cDados:  document.querySelectorAll("#DropD pre div")
+                ,cDados: aDados
+            }
+            ,type: "post"
+            ,success : function(dados) {  
+                  
+                if(dados.nTipo == 1) {
+                    var x = document.getElementById("Atencao")                
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'alert alert-success')
+                    div.innerHTML = dados.Msg
+                    x.appendChild(div)
+                } else if(dados.nTipo == 2) {
+                    var x = document.getElementById("Atencao")                
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'alert alert-success')
+                    div.innerHTML = dados.Msg
+                    x.appendChild(div)
+                } else if(dados.nTipo == 3) {
+                    var x = document.getElementById("Atencao")                
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'alert alert-warning')
+                    div.innerHTML = dados.Msg
+                    x.appendChild(div)
+                } else if(dados.nTipo == 4) {
+                    var x = document.getElementById("Atencao")                
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'alert alert-danger')
+                    div.innerHTML = dados.Msg
+                    x.appendChild(div)
+                    
+                } 
+                setTimeout(function() {
+                    location.reload()
+                }, 1000)
+            }  
+        })
+    }
+
+</script>
+

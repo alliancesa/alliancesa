@@ -1,0 +1,184 @@
+<div class="container-fluid">    
+    {{#each erros}}
+        <div class="alert alert-danger"> {{texto}} </div>
+    {{else}}
+
+    {{/each}}
+    <pre></pre>
+    
+    <div class="row">
+        <pre>   </pre>
+        <div class="card border shadow empresa-fundo">
+            <pre></pre>
+            <div class="card-menu border-left-primary">PERÍODO</div>
+            <div class="card-body col-sm">
+                <pre></pre>
+                <div class="form-input">
+                    <input class="form-control-sm" type="text" id="Data" size="5" onchange="CarregaDados()" >
+                </div>
+                </br>
+                <pre></pre>
+            </div>
+        </div>
+        <pre>   </pre>
+    </div>            
+    <pre>   </pre>
+    
+    <div class="container">
+        <pre>   </pre>
+        <div class="card shadow">
+            <div class="card-body" align="right">
+                <button type="button" id="Imprimir01" class="btn btn-sm btn-primary">Imprimir</button>
+                <button type="button" id="Imprimir02" class="btn btn-sm btn-primary">Exportar Excel</button>
+            </div>
+            <div class="card-body" id="tImpressao">
+                <div id="dTabela"></div>
+            </div>
+            <pre></pre>
+        </div>	
+    </div>
+
+    <div id="loader2">
+        <div class="centraliza">
+            <div class="conteudoFixo">
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="Carregando" role="progressbar" aria-valuenow="0" id="progress"
+                        aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>  -->
+<script type="text/javascript" src="/js/jquery.mask.js"></script>
+<script type="text/javascript" src="/js/javascript.helpers.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="/js/jquery.table2excel.js"></script>
+
+<script>   
+    DivTituloTexto.innerText = "PADRAO"
+    DivTitulo.setAttribute("class", "card shadow border-central")
+
+    Data.value = cAno4+cMes
+
+    $(document).ready(function(){
+        $('#Data').mask('000000');
+    })
+    
+    var options 
+    var cDados
+    var aDados
+    
+    google.charts.setOnLoadCallback(CarregaTabela); 
+
+    function CarregaTabela() {
+        aDados = new google.visualization.DataTable();
+        
+        aDados.addColumn('string', 'Emissão');            //00
+        aDados.addColumn('string', "Nota/Série");         //01
+        aDados.addColumn('string', "Cód. Cliente");       //02        
+
+        var cssClassNames = {
+            'headerRow': 'default-font bold-font a center-text fundo-table-background-padrao '
+            ,'tableRow': 'false'
+            ,'oddTableRow': ''
+            //,'selectedTableRow': 'orange-background large-font'
+            ,'hoverTableRow': 'false'
+            ,'headerCell': ''
+            ,'tableCell': 'default-font'
+            ,'rowNumberCell': 'underline-blue-font'
+        }
+
+        options  = {
+            showRowNumber: false
+            ,width: '100%'
+            //,height: '100%'
+            ,allowHtml: true
+            ,'cssClassNames': cssClassNames
+        }
+
+        cDados = new google.visualization.Table(document.getElementById('dTabela'));
+        cDados.draw(aDados, options); 
+    }
+    
+    function CarregaDados() {
+         // Carrega DIV de carregamento
+        $('#preloader').fadeIn(500);
+        
+        Loading(Carregando, 10)
+
+        BuscaDados('/ERP/Comercial/Relatorios/BuscaNotas', [
+            1
+            ,_cEmpresas.name
+            ,Data.value
+        ])
+        
+        Loading(Carregando, 20)
+        
+        //Carrega API
+        request.done(dados => {  
+            Loading(Carregando, 30)
+            
+            if(aDados.getNumberOfRows() > 0)
+                aDados.removeRows(0, aDados.getNumberOfRows())
+        })
+
+        //Processa Dados
+        request.then(dados => {  
+            aDados.addRows(dados.length)
+
+            Loading(Carregando, 40)
+            
+            for(i=0; i < dados.length; i++) {
+                aDados.setCell(i,  0, dados[i].DATA)
+                aDados.setCell(i,  1, dados[i].NOTA + '/' + dados[i].NOTA)
+                aDados.setCell(i,  2, dados[i].COD_CLIENTE)
+            }
+
+            cDados.draw(aDados, options); 
+
+            Loading(Carregando, 100)
+            
+            $('.google-visualization-table-table').DataTable({
+                "paging":   false
+                ,"info":    false
+                ,"destroy": true
+                //,"searching": false
+                ,"language": {
+                    "lengthMenu": "Visualizações de _MENU_ registros por página",
+                    "zeroRecords": "Nada encontrado",
+                    "info": " Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registro disponível",
+                    "infoFiltered": "(filtrado de _MAX_ registros no total)"
+                }
+            });
+
+            $('#preloader').fadeOut(500);
+        })
+    }
+    
+    Imprimir01.onclick = function() {
+        Imprimir("tImpressao", "dataTables_wrapper")
+    }
+
+    Imprimir02.onclick = function() {
+        $(".google-visualization-table-table").table2excel({
+            exclude: ".excludeThisClass"
+            ,name: "Excel Document Name"
+            ,filename: "BuscaNotas-" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls"
+            ,fileext: ".xls"
+            ,exclude_img: true
+            ,exclude_links: true
+            ,exclude_inputs: true
+            ,preserveColors: true // set to true if you want background colors and font colors preserved
+        });    
+    }
+    
+    setTimeout(function() {
+        CarregaDados()
+    }, 1000)
+
+</script>

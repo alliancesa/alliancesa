@@ -1,0 +1,87 @@
+    {{#each erros}}
+        <div class="alert alert-danger"> {{texto}} </div>
+    {{else}}
+
+    {{/each}}
+
+    {{#if aEquipamentosDELList}}
+    <label><strong>Remove Cadastro de Equipamentos</strong></label>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Código</th>
+                <th scope="col">Empresa</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">IP</th>
+                <th scope="col">Nominal</th>
+                <th scope="col">Status</th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each aEquipamentosDELList}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{Codigo}}</td>
+                <td>{{EmpresasID}}</td>
+                <td>{{Descricao}}</td>
+                <td>{{IP}}</td>
+                <td>{{Nominal}}</td>
+                <td>{{Status}}</td>
+                <td><a href="/admin/Equipamentos/del/{{id}}"><button class="btn btn-primary">Remover</button></a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+
+    {{#each aEquipamentos}}
+    <form action="/admin/Equipamentos/del" method="POST">
+        <label><strong>Remove Cadastro de Equipamentos</strong></label>
+        <div class="card">
+            <div class="card-body">
+                <input type="hidden"  name="id" class="form-control" value="{{id}}" placeholder="Código">
+                <p></p>
+                <div>    
+                    <label>Código</label>
+                    <input type="text"  class="form-control" value="{{Codigo}}" disabled="disabled">
+                </div>
+                <p></p>
+                <div>   
+                    <label>Descrição</label>
+                    <input type="text" name="Descricao" class="form-control" value="{{Descricao}}" placeholder="Descrição" disabled="disabled">
+                </div>
+                <p></p>
+                <div>   
+                    <label>IP</label>
+                    <input type="text" name="IP" class="form-control" value="{{IP}}" placeholder="IP" disabled="disabled">
+                </div>                       
+                <p></p>
+                <div>   
+                    <label>Nominal</label>
+                    <input type="text" name="Nominal" id="Nominal" class="form-control" value="{{Nominal}}" placeholder='Nominal' disabled="disabled">
+                </div>
+                <p></p>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{Status}}" name="Status" disabled="disabled" id="Status">
+                    <label class="form-check-label" for="defaultCheck1">Status</label>
+                </div>
+                <p></p>
+                <div>   
+                    <button type="submit" class="btn btn-primary">Remover</button>
+                </div>
+            </div>
+        </div>        
+    </form>
+
+    <script>
+        var cStatus = '{{Status}}'
+        if(cStatus=="1"){
+            Status.checked = true
+        }
+    </script>
+
+
+    {{/each}}
+    

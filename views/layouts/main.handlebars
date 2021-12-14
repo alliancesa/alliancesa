@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>MIR4 - AllianceSA - Server 34</title>
+
+        <!-- Custom Stylesheet -->
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="/assets/styles.css" rel="stylesheet" media="screen">
+        
+        {{#if user}}
+            <!-- Icones-->
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+            <!-- Charts -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+            <script src="/js/Charts/Chart.min.js"></script>
+            <script src="/js/Charts/utils.js"></script>
+
+
+            <!-- Scripts -->
+            <script type="text/javascript" src="/js/default.js"></script>
+            
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+            <!-- Exportal Exel -->
+            <script src="/js/jquery.table2excel.js"></script>
+
+            <!-- Data Table Tabelamento de dados -->
+            <link href="/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+            <script>
+
+            </script>
+        </head>
+        
+        <body>        
+            <!--*******************
+                Preloader start
+            ********************-->
+            <div id="preloader">
+                <div class="loader">
+                    <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+                    </svg>
+                </div>
+            </div>
+            <!--*******************
+                Preloader end
+            ********************-->
+        
+            <!--**********************************
+                Main wrapper start
+            ***********************************-->
+            <div id="main-wrapper">
+
+                <!--**********************************
+                    Nav header start
+                ***********************************-->
+                <div class="nav-header">
+                    <div class="brand-logo">
+                        <a href="/">
+                            <b class="logo-abbr">
+                                <img src="/images/logo-small2.png" alt="">
+                            </b>
+                            <span class="logo-compact">
+                                <img src="/images/logo-compact.png" alt="">
+                            </span>
+                            <span class="brand-title">
+                                <!--<img src="/menu/images/logo-great.jpeg" width="243" height="80" alt="">-->
+                                <img src="/images/logo-great2.jpeg" width="100%" height="100%" alt="">
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <!--**********************************
+                    Nav header end
+                ***********************************-->
+
+                <!--**********************************
+                    Header start
+                ***********************************-->
+                <div class="header">    
+                    <div class="header-content clearfix">                    
+                        <div class="nav-control">
+                            <div class="hamburger">
+                                <span class="toggle-icon"><i class="icon-menu"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="header-right">
+                            <ul class="clearfix">
+                                <li class="icons dropdown d-none d-md-flex" id="gEmpresas"></li>
+                                <li class="icons dropdown">
+                                    <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                        <span class="activity active"></span>
+                                        <img src="/images/user/1.png" height="40" width="40" alt="">
+                                    </div>
+                                    <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                        <div class="dropdown-content-body">
+                                            <ul>
+                                                <li>
+                                                    <a href="/Usuarios/Profiles/"><i class="icon-user"></i> <span>Profile</span></a>
+                                                </li>
+                                                
+                                                {{#if aAdminMenu}}      
+                                                    <hr class="my-2">
+                                                    <li>
+                                                        <a href="/Usuarios">
+                                                            <i class="fa fa-user-plus"></i>
+                                                            <span>Usuários</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/Admin">
+                                                            <i class="fas fa-users-cog"></i>
+                                                            <span>Admin</span
+                                                        ></a>
+                                                    </li>
+                                                {{/if}}
+                                                
+                                                <hr class="my-2">
+                                                <pre></pre>
+                                                <li><a href="/Usuarios/Logout"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--**********************************
+                    Header end ti-comment-alt
+                ***********************************-->
+
+                <!--**********************************
+                    Sidebar start
+                ***********************************-->
+                <div class="nk-sidebar">           
+                    <div class="nk-nav-scroll">
+                        <ul class="metismenu" id="menu">
+                            <pre></pre>      
+                            <li>
+                                <a href="/" aria-expanded="false">
+                                    <i class="fa fa-home"></i>
+                                    <span class="nav-text">Principal</span>
+                                </a>
+                            </li>
+
+                            {{>_Menu}}
+
+                        </ul>
+                    </div>
+                </div>
+                <!--**********************************
+                    Sidebar end
+                ***********************************-->
+
+                <!--**********************************
+                    Content body start
+                ***********************************-->
+                <div class="content-body">
+                    <div class="container-fluid mt-3">
+                    
+                        {{>_msg}}
+                        
+                        <pre></pre>
+
+                        {{{body}}}
+                        
+                        <pre>   </pre>
+                        <pre>   </pre>
+                    </div>
+                    
+                    <!-- #/ container -->
+                </div>
+                <!--**********************************
+                    Content body end
+                ***********************************-->
+                
+                
+                <!--**********************************
+                    Footer start
+                ***********************************-->
+                <pre></pre>
+                <div class="footer">
+                    <div class="copyright">
+                        <p>Copyright © 2021 TESTE - Todos os direitos reservados.</p>
+                    </div>
+                </div>
+                <!--**********************************
+                    Footer end
+                ***********************************-->
+            </div>
+
+            <!--**********************************
+                Main wrapper end
+            ***********************************-->
+
+            <!--**********************************
+                Scripts
+            ***********************************-->
+            <script src="/plugins/common/common.min.js"></script>
+            <script src="/js/custom.min.js"></script>
+            <script src="/js/settings.js"></script>
+            <script src="/js/gleek.js"></script>
+            <script src="/js/styleSwitcher.js"></script>
+
+            <!-- Chartjs
+
+            <script src="/plugins/chart.js/Chart.bundle.min.js"></script>
+            <!-- Circle progress 
+            <script src="/plugins/circle-progress/circle-progress.min.js"></script>
+            <!-- Datamap 
+            <script src="/plugins/d3v3/index.js"></script>
+            <script src="/plugins/topojson/topojson.min.js"></script>
+            <script src="/plugins/datamaps/datamaps.world.min.js"></script>
+            <!-- Morrisjs 
+            <script src="/plugins/raphael/raphael.min.js"></script>
+            <script src="/plugins/morris/morris.min.js"></script>
+            <!-- Pignose Calender 
+            <script src="/plugins/moment/moment.min.js"></script>
+            <script src="/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+            <!-- ChartistJS 
+            <script src="/plugins/chartist/js/chartist.min.js"></script>
+            <script src="/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+            -->
+            <!-- Data Table Tabelamento de dados -->
+            <script src="/plugins/tables/js/jquery.dataTables.min.js"></script>
+            <script src="/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+            <script src="/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+            
+            
+            <!--        <script src="/js/dashboard/dashboard-1.js"></script>       -->
+
+            <script>
+
+            </script>
+        </body>
+    {{else}}
+
+        </head>
+
+        <body class="h-100">
+            
+            <!--*******************
+                Preloader start
+            ********************-->
+            <div id="preloader">
+                <div class="loader">
+                    <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+                    </svg>
+                </div>
+            </div>
+            <!--*******************
+                Preloader end
+            ********************-->
+
+            {{{body}}}                            
+
+
+            {{#if aExterno}}                
+            {{else}}
+<!--        
+                <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+<!--                            <pre></pre>
+                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa fa-hands-helping"></i>
+                        <span class="nav-text">CHAMADOS TI</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a href="/Chamados/Add">Adicionar</a></li>
+                        <li><a href="/Chamados/Listar">Listar</a></li>    
+                    </ul>
+                </li>
+-->
+            {{/if}}
+            <!--**********************************
+                Scripts
+            ***********************************-->
+            <script src="/plugins/common/common.min.js"></script>
+            <script src="/js/custom.min.js"></script>
+            <script src="/js/settings.js"></script>
+            <script src="/js/gleek.js"></script>
+            <script src="/js/styleSwitcher.js"></script>
+
+        </body>
+    {{/if}}
+
+</html>

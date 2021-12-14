@@ -1,0 +1,141 @@
+
+
+
+{{#foreach aMenu}}
+    {{#if_eq this 'ERP'}}
+    <!-- ERP -->
+        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                <i class="fas fa-hotel"></i>
+                <span class="nav-text">ERP</span>
+            </a>
+            <ul aria-expanded="false">
+                {{#foreach ../aModulo}}
+                    {{#if_eq this 'ERP_Comercial'}}
+                        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa fa-wallet"></i>
+                                <span class="nav-text">Comercial</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="/ERP/Comercial/PreVenda">Pré Venda</a></li>
+                                <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <i class="fas fa-file-alt"></i>
+                                        <span class="nav-text">Relatório</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        {{#foreach ../aRotina}}
+                                            {{#if_eq this 'ERP_BuscaNotas'}}
+                                                <li><a href="/ERP/Comercial/Relatorios/BuscaNotas">Busca Notas Fiscais</a></li>
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_CarteiraComercial'}}                    
+                                                <li><a href="/ERP/Comercial/Relatorios/CarteiraComercial">Carteira Clientes</a></li>          
+                                            {{/if_eq}}
+                                            {{#if_eq this 'ERP_ComFatRegioes'}}                    
+                                                <li><a href="/ERP/Comercial/Relatorios/ComFatRegioes">Faturamento Regiões</a></li>          
+                                            {{/if_eq}}         
+                                        {{/foreach}}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    {{/if_eq}} 
+<!--
+                    {{#if_eq this 'ERP_Compras'}}
+                        <li><a href="/ERP/Compras">Compras</a></li>
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Contabilidade'}}                        
+                        <li><a href="/ERP/Contabilidade">Contabilidade</a></li>
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Estoque'}}                        
+                        <li><a href="/ERP/Estoque">Estoque</a></li>
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Expedicao'}}                        
+                        <li><a href="/ERP/Expedicao">Expedição</a></li>
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Faturamento'}}                        
+                        <li><a href="/ERP/Faturamento/Familia">Faturamento</a></li>
+                    {{/if_eq}} 
+                    {{#if_eq this 'ERP_Financeiro'}}                        
+                        <li><a href="/ERP/Financeiro">Financeiro</a></li>            
+                    {{/if_eq}}
+                    {{#if_eq this 'ERP_PCP'}}                        
+                        <li><a href="/ERP/PCP">PCP</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'ERP_RH'}}                        
+                        <li><a href="/ERP/RH">RH</a></li>
+                    {{/if_eq}}
+
+-->                    
+                {{/foreach}}
+            </ul>
+        </li>
+    {{/if_eq}} 
+
+    {{#if_eq this 'Fabrica'}}
+        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                <i class="fas fa-industry"></i>
+                <span class="nav-text">FABRICA</span>
+            </a>
+            <ul aria-expanded="false">
+                {{#foreach ../aRotina}}
+                    {{#if_eq this 'Fabrica_EficiTP'}}
+                        <li><a href="/Fabrica/Gerencia/Relatorios/EficiTP">Rel. Eficiências TP</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'Fabrica_Extrusora'}}
+                        <li><a href="/Fabrica/Paineis/Extrusora">Extrusora</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'Fabrica_TecPlana'}}
+                        <li><a href="/Fabrica/Paineis/TPGrupos">Grupos TecPlana</a></li>
+                    {{/if_eq}}
+                {{/foreach}}
+            </ul>
+        </li>
+    {{/if_eq}} 
+     
+    {{#if_eq this 'PAINEIS'}}
+        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                <i class="fas fa-solar-panel"></i>
+                <span class="nav-text">PAINÉIS</span>
+            </a>
+            <ul aria-expanded="false">
+                 {{#foreach ../aModulo}}
+                    {{#if_eq this 'PAINEIS_Comercial'}}
+                        <li><a href="/PAINEIS/Comercial">Comercial</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'PAINEIS_ADM_Fabrica'}}
+                        <li><a href="/PAINEIS/ADM_Fabrica">Fabrica</a></li>
+                    {{/if_eq}}
+                {{/foreach}}                        
+            </ul>
+        </li>
+    {{/if_eq}}
+
+    {{#if_eq this 'RJ'}}
+        <!-- RJ -->
+        <pre></pre>
+        <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                <i class="fab fa-accessible-icon"></i>
+                <span class="nav-text">RJ</span>
+            </a>
+            <ul aria-expanded="false">
+                {{#foreach ../aRotina}}
+                    {{#if_eq this 'RJ_ComprasMP'}}
+                        <li><a href="/RJ/Gerencia/ComprasMP">Compras de MP</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'RJ_FatClientes'}}
+                        <li><a href="/RJ/Gerencia/FatClientes">Faturamento por Clientes</a></li>
+                    {{/if_eq}}
+                    {{#if_eq this 'RJ_APagar'}}
+                        <li><a href="/RJ/Gerencia/APagar">A Pagar</a></li>
+                    {{/if_eq}}
+                {{/foreach}}                    
+            </ul>
+        </li>     
+        <pre></pre>   
+    {{/if_eq}}
+{{/foreach}}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		<meta http-equiv="Content-Language" content="pt-br">
+		<!-- HTML 4 -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<!-- HTML5 -->
+		<meta charset="utf-8"/>
+
+	    <!-- Le styles -->
+	    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script src="scripts\Pressao.js"></script>
+
+		<script type="text/javascript">
+			
+            // Busca dados da Arquivo txt
+            setInterval(function() 
+            {
+				Pressao();
+				Pressao2();
+			}, 5000);
+			
+		</script>
+				
+		<style>   	
+		
+		    #Conainer_Cliente{
+		        width:400px;
+		        position: absolute; top: 60px; left: 0px;
+		    }
+		    #Dados_Cliente{
+		        font:12px sans-serif;
+		        margin:10px;
+		    }
+		    #Tabela_Desc{
+		       width:130px;
+		    }
+		    #Tabela_Dados{
+		        font:12px sans-serif;
+		    }    
+		
+		</style> 
+		<title>Pressão</title>
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="panel-group">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Filial: 010101 - Alçabras</div>
+					<div class="panel-body">
+						<table class="table table-hover" id="Dados_Cliente">
+			                <tr>
+			                    <td id="Tabela_Dados"><br/> 							
+			                        <div id="Capacidade" align="center"></div>
+			                    </td>
+			            </table>
+			            <table class="table table-hover" id="Dados_Cliente">
+			                <tr>
+			                    <td id="Tabela_Desc" align="center"><strong>Data</strong></td>
+			                    <td id="Tabela_Desc" align="center"><strong>Pressão</strong></td>
+			                    <td id="Tabela_Desc" align="center"><strong>Pressão Miníma</strong></td>
+			                    <td id="Tabela_Desc" align="center"><strong>Pressão Máxima</strong></td>
+			                </tr>
+			                <tr>
+								<td id="Tabela_Dados" align="center"><div id="DT"></div></td>
+								<td id="Tabela_Dados" align="center"><div id="PE"></div></td>
+								<td id="Tabela_Dados" align="center"><div id="PB"></div></td>
+								<td id="Tabela_Dados" align="center"><div id="PA"></div></td>                
+			                </tr>
+			            </table>
+			            <table class="table table-hover" id="Dados_Cliente"></table>
+			                <tr>
+			                    <td>
+			                        <div id="chart_hora" style="width: 100%; height: 350px;"  align="center"></div>
+			                    </td>
+			                </tr>
+						</table>
+					</div>
+					<div id="TESTE"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

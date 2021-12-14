@@ -1,0 +1,59 @@
+{{#if success_msg}}
+    <pre></pre>
+    <pre></pre>
+    <div class="alert alert-success">{{success_msg}}</div>
+
+    <script>
+        $(document).ready(function(){
+            if(document.getElementsByClassName("alert alert-success")[0].innerText == 'Cotação gravada com sucesso!'){
+                var cMsg
+
+                cMsg  = " <p></p>                                                                   " 
+                cMsg += " <p class='alert alert-success' style='text-align:center;'>                "
+                cMsg += "   </br>                                                                   "
+                cMsg += "   <b>COTAÇÃO ATUALIZADA COM SUCESSO</b>                                   "
+                cMsg += "   </br> </br>                                                             "
+                cMsg += " </p>                                                                      "            
+
+                msgContinuar.setAttribute("title", 'COTAÇÃO ATUALIZADA')
+                msgContinuar.innerHTML = cMsg 
+
+                $("#msgContinuar").dialog({
+                    modal: true
+                    ,resizable: false
+                    ,height: "auto"
+                    ,width: 400
+                    ,open: function() {
+                        document.getElementsByClassName("ui-dialog-titlebar")[0].setAttribute("class", "ui-dialog-titlebar badge-primary bold-font alert-success ui-corner-all ui-helper-clearfix ui-draggable-handle")
+                        document.getElementsByClassName("ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close")[0].setAttribute("disabled", "")                
+                    }
+                });
+            }
+
+            setTimeout(function() {
+                window.location.reload();
+            }, 2500)            
+        })
+    </script>
+    {{#if success_msg}}
+
+    {{/if}}    
+{{/if}}
+
+{{#if error_msg}}
+    </br>
+    <div class="alert alert-danger">{{error_msg}}</div>
+
+{{/if}}
+
+{{#if error}}
+    </br>
+    <div class="alert alert-danger">{{error}}</div>
+    <script>
+        setTimeout(function() {
+            window.location.reload();
+        }, 2500)
+    </script>
+{{else}}
+
+{{/if}}

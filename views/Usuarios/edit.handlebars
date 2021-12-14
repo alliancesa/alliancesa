@@ -1,0 +1,135 @@
+<div class="container-fluid">
+    {{#each erros}}
+        <div class="alert alert-danger"> {{texto}} </div>
+    {{else}}
+
+    {{/each}}
+
+    <div class="card border shadow  empresa-fundo border-left-primary border-right-primary col-lg-4">
+        <pre></pre>
+        <div class="card-menu">ALTERAÇÃO DE USUÁRIOS</div>
+        <pre></pre>
+    </div>
+    </br>
+
+    {{#if aUsuarios}}
+        <div class="container">
+            <div class="card border shadow h-100 py-2">
+                <div class="card-body table-responsive-sm">
+                    <table class="table" style="font-size: 12px;">
+                        <thead>
+                            <tr>
+                                <th scope="col" align="center" bgcolor="#DFEFFF">#</th>
+                                <th scope="col" align="center" bgcolor="#DFEFFF">Nome</th>
+                                <th scope="col" align="center" bgcolor="#DFEFFF">E-mail</th>
+                                <th scope="col" align="center" bgcolor="#DFEFFF">Admin</th>
+                                <th scope="col" align="center" bgcolor="#DFEFFF">Usuário ERP</th>
+                                <th scope="col" align="center" bgcolor="#DFEFFF">Codigo Vendedor</th>
+                                <th scope="col" align="center" bgcolor="#DFEFFF">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each aUsuarios}}
+                                <tr>
+                                    <th scope="row">{{id}}</th>
+                                    <td>{{Nome}}</td>
+                                    <td>{{Email}}</td>
+                                    <td>{{Admin}}</td>
+                                    <td>{{UserERP}}</td>
+                                    <td>{{VENDEDOR}}</td>
+                                    <td><a href="/Usuarios/Edit/{{id}}"><button class="btn btn-sm btn-primary">Alterar</button></a></td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+
+    {{#each aUsuariosEdit}}
+        <div class="container">
+            <div class="card border shadow h-100 py-2">
+                <div class="card-body table-responsive-sm">
+                    <form action="/Usuarios/edit" method="POST">
+                        <div class="row">
+                            <div class="col-2">  
+                                <label>Nome</label>
+                            </div>
+                            <div class="col-6">  
+                                <input type="hidden"  class="form-control" value="{{id}}" name="id" id="id">
+                                <input type="text" name="nome" class="form-control" value="{{Nome}}" placeholder="Nome" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">   
+                                <label>E-Mail</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="email" class="form-control" value="{{Email}}" placeholder="Descrição" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">   
+                                <label for="senha">Senha: </label>
+                            </div>
+                            <div class="col-6">   
+                                <input type="password" name="senha" class="form-control" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <label for="senha2">Repita sua Senha:</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="password" name="senha2" class="form-control" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <label>Usuário ERP</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" id="UserERP" name="UserERP" class="form-control" value="{{UserERP}}" placeholder="000000" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <label>Código Vendedor</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" id="Vendedor" name="Vendedor" class="form-control" value="{{VENDEDOR}}" placeholder="000000" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{Admin}}" name="Admin" id="Admin">
+                            <label class="form-check-label" for="defaultCheck1">Admin</label>
+                        </div>
+                        <p></p>
+                        <div>   
+                            <button type="submit" class="btn btn-sm btn-primary">Alterar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+        </div>      
+        <script>
+            var cAdmin = '{{Admin}}'
+            if(cAdmin=="1"){
+                Admin.checked = true
+            }
+        </script>
+    {{/each}}
+</div>
+
+<script type="text/javascript" src="/js/jquery.mask.js"></script>
+<script type="text/javascript" src="/js/javascript.helpers.js"></script>
+
+<script>
+
+    $(document).ready(function(){   
+        $('#UserERP').mask('000000'); 
+        $('#Vendedor').mask('000000'); 
+    })
+
+</script>

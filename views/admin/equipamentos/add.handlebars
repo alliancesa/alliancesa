@@ -1,0 +1,85 @@
+<div class="container-fluid">
+    {{#each erros}}
+        <div class="alert alert-danger"> {{texto}} </div>
+    {{else}}
+
+    {{/each}}
+
+    <div class="container">
+        <form action="/admin/Equipamentos/add" method="POST">
+            <div class="card border shadow h-100 py-2">
+                <pre></pre>
+                <div class="card-header"><strong>Cadastro de Equipamentos</strong></div>
+                <div class="card-body">
+                    <div>   
+                        <label>Código</label>
+                        <input type="text" name="Codigo" class="form-control" placeholder="Código" id="Codigo">
+                    </div>
+                    <p></p>
+                    <div>   
+                        <label>Empresa</label>
+                        <select class="form-control" id="Empresa" name="Empresa">
+                            <option value=""></option>
+                            {{#each aListEmpresas}}
+                                <option value="{{id}}">{{Descricao}}</option>
+                            {{/each}}                    
+                        </select>
+                    </div>
+                    <p></p>
+                    <div>   
+                        <label>Descrição</label>
+                        <input type="text" name="Descricao" class="form-control" placeholder="Descrição">
+                    </div>
+                    <p></p>
+                    <div>   
+                        <label>IP</label>
+                        <input type="text" name="ipv4" id="ipv4" class="form-control" placeholder='xxx.xxx.xxx.xxx'>
+                    </div>
+                    <p></p>
+                    <div>   
+                        <label>Nominal</label>
+                        <input type="text" name="Nominal" id="Nominal" class="form-control" placeholder='Nominal'>
+                    </div>
+
+                    <p></p>
+                    <div>   
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </div>   
+            </div>
+        </form>
+    </div>
+</div>
+
+    <script src="/js/jquery.min.js"></script>
+    
+    <script src="/js/jquery.inputmask.bundle.js"></script>
+    <script>
+        var ipv4_address = $('#ipv4');
+        ipv4_address.inputmask({
+            alias: "ip",
+            greedy: false
+        });
+       
+        function BuscaCodigo() {
+        $.ajax(
+        {
+            url: '/Admin/Equipamentos/Codigo/' + Codigo.value ,
+            type: "get",
+
+            success: function (aDados) {
+               if(aDados.length>0){
+                    Codigo.className= "form-control alert-danger"
+                    Cadastrar.disabled = true
+               } else {
+                    Codigo.className= "form-control"
+                    Cadastrar.disabled = false
+               }
+            }
+        })
+    }
+
+    </script>
+
+
+    

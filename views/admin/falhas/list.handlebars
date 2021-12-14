@@ -1,0 +1,24 @@
+
+<label><strong>Listar falhas</strong></label>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Código</th>
+            <th scope="col">Empresa</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each aFalhas}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{Codigo}}</td>
+                <td>{{EmpresasID}}</td>
+                <td>{{Descricao}}</td>
+                <td>{{Status}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

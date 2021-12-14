@@ -1,0 +1,75 @@
+    {{#each erros}}
+        <div class="alert alert-danger"> {{texto}} </div>
+    {{else}}
+
+    {{/each}}
+
+<div class="conteiner">
+    {{#if aTecEditView}}
+        <div class="card">
+            <div class="card-body table-responsive-sm">
+                <table class="table" style="font-size: 12px;" id="Busca">
+                    <thead>
+                        <tr>
+                            <td scope="col" align="center" bgcolor="#DFEFFF"><strong>ID</strong></td>
+                            <td scope="col" align="center" bgcolor="#DFEFFF"><strong>Empresa</strong></td>
+                            <td scope="col" align="center" bgcolor="#DFEFFF"><strong>Codigo</strong></td>
+                            <td scope="col" align="center" bgcolor="#DFEFFF"><strong>Nome</strong></td>
+                            <td scope="col" align="center" bgcolor="#DFEFFF"><strong>E-mail </strong></td>
+                            <td scope="col" align="center" bgcolor="#DFEFFF"><strong>Status</strong></td>
+                            <td scope="col" align="center" bgcolor="#DFEFFF"><strong>Ação</strong></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each aTecnicos}}
+                        <tr>
+                            <td align="center">{{id}}</td>
+                            <td align="center">{{Descricao}}</td>
+                            <td align="center">{{Codigo}}</td>
+                            <td align="center">{{Nome}}</td>
+                            <td align="center">{{Email}}</td>
+                            <td align="center">{{Status}} </td>
+                            <form action="/Manutencao/Tecnicos/edit" method="post">
+                                <input type="hidden" id="ID" name="ID" value="{{id}}">
+                                <td align="center"><button class="btn btn-outline-warning btn-sm" id="Imp">Alterar</button> </td>
+                            </form>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {{/if}}
+
+    {{#each aTecEditAlter}}
+        <div class="card">
+            <div class="card-header">Alteração de Cadastro</div>
+            <div class="card-body">
+                <form action="/Manutencao/Tecnicos/edited" method="post">
+                    <label>Empresa</label>
+                    <select class="form-control" id="Empresa" placeholder="Empresa" name="Empresa" required>
+                        <option value="{{id}}">{{Descricao}}</option>
+                        {{#each ../aListEmpresas}}
+                            <option value="{{id}}">{{Descricao}}</option>
+                        {{/each}}                    
+                    </select>
+                    <pre></pre>
+                    <input type="text" id="Codigo" name="Codigo" value="{{Codigo}}" class="form-control" placeholder="Código" disabled>
+                    <pre></pre>
+                    <input type="text" id="Nome" name="Nome" value="{{Nome}}" class="form-control" placeholder="Nome Completo" required>
+                    <pre></pre>
+                    <input type="email" id="Email" name="Email" value="{{Email}}" class="form-control" placeholder="E-Mail" required>
+                    <pre></pre>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" {{StatusINPUT}} name="Status" id="Status">
+                        <label class="form-check-label" for="defaultCheck1">Status</label>
+                    </div>
+                    <div align="right">
+                        <input type="hidden" id="ID" name="ID" value="{{id}}">
+                        <button type="submit" class="btn btn-primary">Alterar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {{/each}}
+</div>
