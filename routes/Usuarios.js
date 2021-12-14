@@ -587,8 +587,6 @@ function EnviaEmail(params, id2) {
     chtml += '   <h2>Bem Vindo(a) ao Portal AllianceSA </h3>                                                                                                        '
     chtml += '   <pre>Recebemos seu pedido de registro de conta, favor confirmar seu e-mail. </pre>                                                                 '
     chtml += '   <pre><strong>Endereço: </strong><a href="https://alliancesa.herokuapp.com/">https://alliancesa.herokuapp.com/</a></pre>                            '
-    //chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="http://localhost:8383/Usuarios/ValidaEmail/' + id2 + '" a>aqui</strong></pre>   '
-    //chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="http://177.220.138.5:9393/Usuarios/ValidaEmail/' + id2 + '" a>aqui</strong></pre>   '
     chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="https://alliancesa.herokuapp.com/Usuarios/ValidaEmail/' + id2 + '" a>aqui</a></strong></pre>    '
     chtml += ' </div>                                                                                                                                               '
 
@@ -625,7 +623,7 @@ function EnviaAdmin(params, id2) {
 
     const mailOptions = {
         from: "alliancesa34@gmail.com"
-        //,to:  "'" + params.email + "'"
+        ,to:  'tdrgoblin@gmail.com ;tiagodalua@gmail.com'
         ,bcc: 'tdrgoblin@gmail.com ' //;tiagodalua@gmail.com'
         ,subject: 'Portal AllianceSA - Novo Cadastro'
         //text: 'Bem fácil, não? ;)'
