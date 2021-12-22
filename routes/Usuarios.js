@@ -279,7 +279,6 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
         })
     })
 
-
     // Função para liberação de cadastro por e-mail
     router.get("/APROVCAD",  (req, res) => {
         res.render("Usuarios/APROVCAD")
