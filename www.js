@@ -16,7 +16,8 @@
     const passport = require("passport")
     require("./config/auth")(passport)
 
-// Configurações
+
+// Configurações   
     // Session
         app.use(session({
             secret: "@ll1@nc3S@",
