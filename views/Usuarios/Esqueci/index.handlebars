@@ -2,13 +2,37 @@
 
 {{#if aEsqueci}}
     <div class="alert alert-success" align="center">E-Mail enviado com sucesso, favor verificar sua caixa de entrada.</div>
+    
+    <script>
+        setInterval(function() {
+            window.location.replace("https://www.mir4stats.tk/");
+        }, 5000)
+    </script>
 {{else}}
     {{#if aEsqueciOK}}
         <div class="alert alert-success" align="center">Redefinição de senha realizado com sucesso, será enviado um e-mail com sua nova senha. </div>
+
+        <script>
+            setInterval(function() {
+                window.location.replace("https://www.mir4stats.tk/");
+            }, 5000)
+        </script>        
     {{else}}
         {{#if aEsqueciNC}}
             <div class="alert alert-danger" align="center">chave não encontrada. </div>
+
+            <script>
+                setInterval(function() {
+                    window.location.replace("https://www.mir4stats.tk/");
+                }, 5000)
+            </script>            
         {{else}}
+            {{#each error_msg}}
+                <div class="alert alert-danger">
+                    <center>E-mail não localizado!</center>
+                </div>
+            {{/each}}
+
             <div class="container-fluid"  align="center">
                 <div class="card" style="width: 24rem;">
                     <div class="card-body">

@@ -1,8 +1,8 @@
-const express = require('express');
-const router  = express.Router();
-const db      = require("../models/db")
-const Cadastros    = require('../models/Cadastros');
-const request = require('request');
+const express   = require('express');
+const router    = express.Router();
+const db        = require("../models/db")
+const Cadastros = require('../models/Cadastros');
+const db2       = require('../models/db2');
 
 const {AuthUsuarios}   = require("../helpers/Usuarios")
 
@@ -10,15 +10,18 @@ const {AuthUsuarios}   = require("../helpers/Usuarios")
     // PRINCIPAL = 1 Gerancial por empresa
     // PRINCIPAL = 2 Gerencial Todas empresas
 
-
-    // Busca Dados Banco do ERPcls
-    function BuscaDados(sqlQry, res) {
-        conn.request()
-            .query(sqlQry)
-            .then(result => {
-                res.json(result.recordset)
-            })
-            .catch(err => res.json(err));
+    function BuscaDados(cQry, res, nTipo) {
+        db2.query(cQry, function (err, result, fields) {
+            if(err){
+                res.json(err)    
+            } else {
+                if(nTipo == 1){
+                    res.json(result)    
+                } else if(nTipo == 2) {
+                    res.json(result[7])
+                }
+            }
+        });
     }
 
     // Variaveis Globais
@@ -26,7 +29,6 @@ const {AuthUsuarios}   = require("../helpers/Usuarios")
     aModulo = []
     aRotina = []   
 
-    
 
     router.get('/', AuthUsuarios, (req, res) => {
         if(nBemVindo==0){
@@ -46,22 +48,6 @@ const {AuthUsuarios}   = require("../helpers/Usuarios")
                     ,aRotina
                     ,aLogin
                 })
-            } else if(req.user.PRINCIPAL == '2') {    
-                res.render("Principal/Gerencial2", {
-                    aAdminMenu: aAdminMenu 
-                    ,aMenu 
-                    ,aModulo
-                    ,aRotina
-                    ,aLogin
-                })
-            } else {
-                res.render("Principal/index", {
-                    aAdminMenu: aAdminMenu 
-                    ,aMenu 
-                    ,aModulo
-                    ,aRotina
-                    ,aLogin
-                })
             }
 
         } else if(req.user.PRINCIPAL == '1') {         
@@ -71,62 +57,37 @@ const {AuthUsuarios}   = require("../helpers/Usuarios")
                 ,aRotina
                 ,aLogin
             })
-        } else if(req.user.PRINCIPAL == '2') {         
-            res.render("Principal/Gerencial2", {
-                aMenu 
-                ,aModulo
-                ,aRotina
-                ,aLogin
-            })
         } else {
-
-            Cadastros.Clans.findAll( ).then((dados) => {
-            
-            })
+            var aClansTotal
+            var aClans = []
+            var aClasses = []
             
             Cadastros.Classes.findAll( ).then((dados) => {
-            
-            })
-
-            res.render("Principal/index", {
-                aMenu 
-                ,aModulo
-                ,aRotina
-                ,aLogin
-            })
+                for (let i = 0; i < dados.length; i++) {
+                    aClasses.push(dados[i].NOME)
+                }
         
+                Cadastros.Clans.findAll( ).then((dados) => {
+                    for (let i = 0; i < dados.length; i++) {
+                        aClans.push(dados[i].NOME)
+                    }
+
+                    aClansTotal = dados.length
+            
+                    res.render("Principal/index", {
+                        aMenu 
+                        ,aModulo
+                        ,aRotina
+                        ,aLogin
+                        ,aClans
+                        ,aClansTotal
+                        ,aClasses
+                    })
+                })
+            })
         }     
     }); 
     
-    
-    router.get('/Gerencial1', AuthUsuarios, (req, res) => {
-        if(req.user.Admin == 1) {
-            res.render("Principal/Gerencial1", {
-                aMenu 
-                ,aModulo
-                ,aRotina
-            })
-        } else {
-            res.render("Principal/index", {
-                aMenu 
-                ,aModulo
-                ,aRotina
-            })
-        }
-    })
-
-    router.post('/Gerencial1', AuthUsuarios, function(req, res){   
-        if(req.body.cParam1 == 1) { // Faturamento - MIL R$
-            cQry  = " SELECT                                                                                                "
-            cQry += "    *                                                                                                  "
-            cQry += " FROM                                                                                                  "
-            cQry += "    vwFAT001_V2                                                                                        "
-            cQry +=  " WHERE                                                                                                "
-            cQry += "     EMPRESA+FILIAL = '" + req.body.cParam2.split("_")[0] + req.body.cParam2.split("_")[1] +"'         "
-        }
-        BuscaDados(cQry, res)
-    })
-
 
     router.get('/Clans', AuthUsuarios, (req, res) => {
         res.render("Principal/Clans", {
@@ -263,14 +224,308 @@ const {AuthUsuarios}   = require("../helpers/Usuarios")
         })
     })
 
-    router.post('/Personagens', AuthUsuarios, (req, res) => {
-        
+    router.get('/Eventos', AuthUsuarios, (req, res) => {
+        res.render("Principal/Eventos", {
+            aMenu 
+        })
+    })
 
+    router.post('/Eventos', AuthUsuarios, (req, res) => {
+        var erros = []
+    
+        if(!req.body.nome || typeof req.body.nome  == undefined || req.body.nome == null){
+            erros.push({texto: "Nome Inválido"})
+        }
+        
+        if(!req.body.data || typeof req.body.data  == undefined || req.body.data == null){
+            erros.push({texto: "Data Inválido"})
+        }
+
+        if(!req.body.hora || typeof req.body.hora  == undefined || req.body.hora == null){
+            erros.push({texto: "Hora Inválido"})
+        }
+
+        // Valida erros e adiciona registro
+        if(erros.length > 0){
+            req.flash("error_msg", "Campo inválido")
+            res.render("Principal/Eventos", {erros: erros})
+        } else {
+            //Post.Usuarios.findOne({EMAIL: req.body.email}).then((usuarios) => {
+            Cadastros.Eventos.findAll({
+                where: {
+                    NOME: req.body.nome
+                }
+            }).then(function(dados) {          
+                if(dados.length > 0){
+                    req.flash("error_msg", "Já existe um Evento com esse nome.")
+                    res.redirect("Eventos")
+                } else {
+
+                    const NovoEventos = new Cadastros.Eventos ({
+                        NOME     :  req.body.nome
+                        ,DATA    :  req.body.data
+                        ,HORA    :  req.body.hora
+                        ,STATUS  :  1
+                    })
+
+                    NovoEventos.save().then(() => {
+                        req.flash("success_msg", "Novo Evento cadastrado com sucesso!")
+                        res.redirect("Eventos")
+
+                    }).catch((err) => {
+                        req.flash("error_msg", "Houve um erro ao criar um novo evento, tente novamente")
+                        res.redirect("Eventos")
+                    })
+                }
+            }).catch((err) => {
+                req.flash("error_msg", "Houve um erro interno")
+                res.redirect("Eventos")
+            })
+        }
+    })
+
+
+    router.post('/Personagens', AuthUsuarios, (req, res) => {
+        var erros = []
+    
+        if(!req.body.nick || typeof req.body.nick  == undefined || req.body.nick == null){
+            erros.push({texto: "Nick Inválido"})
+        }
+
+        // Valida erros e adiciona registro
+        if(erros.length > 0){
+            req.flash("error_msg", "Campo inválido")
+            res.redirect("/Personagens");
+        } else {
+            Cadastros.Personagens.findAll({
+                where: {
+                    TIPO: req.body.tipo
+                    ,ID_USUARIO: req.user.id
+                }
+            }).then(function(dados) {          
+                if(dados.length > 0){
+                    if(dados[0].dataValues.TIPO != parseInt(req.body.tipo)){
+                        req.flash("error_msg", "Tipo de Conta já registrada, favor realizar a mudança e tentar novamente!")
+                        res.redirect("/Personagens");
+                    } else if(dados[0].dataValues.NICK != req.body.nick){
+                        req.flash("error_msg", "Tipo de Conta já registrada, favor realizar a mudança e tentar novamente!")
+                        res.redirect("/Personagens");
+                    } else {
+                        Cadastros.Personagens.findAll({
+                            where: {
+                                NICK: req.body.nick
+                                ,ID_USUARIO: req.user.id
+                            }
+                        }).then(function(dados) {          
+                            if(dados.length > 0){
+                                const AlteraPersonagens = ({
+                                    ID_USUARIO:  req.user.id
+                                    ,TIPO     :  parseInt(req.body.tipo)
+                                    ,NICK     :  req.body.nick
+                                    ,ID_CLAN  :  parseInt(req.body.clan)
+                                    ,ID_CLASSE:  parseInt(req.body.classe)
+                                    ,NIVEL    :  parseInt(req.body.nivel)
+                                    ,PODER    :  parseInt(req.body.poder)
+                                    ,TIERIV   :  parseInt(req.body.TierIV)
+                                    ,TIERIII  :  parseInt(req.body.TierIII)
+                                    ,TIERII   :  parseInt(req.body.TierII)
+                                    ,TIERI    :  parseInt(req.body.TierI)
+                                    ,STATUS   :  1
+                                })
+                                
+                                Cadastros.Personagens.update(AlteraPersonagens, { where: { id: dados[0].id } })
+                                .then(function() {
+                                    req.flash("success_msg", "Cadastro alterado com sucesso!");
+                                    res.redirect("/Personagens");
+                                }).catch(function (erro) {
+                                    req.flash("error_msg", "Houve um erro ao salvar a alteração, tente novamente!  " + erro);
+                                    res.redirect("/Personagens");
+                                })
+                            } else {
+                                const NovaPersonsagem = new Cadastros.Personagens ({
+                                    ID_USUARIO:  req.user.id
+                                    ,TIPO     :  parseInt(req.body.tipo)
+                                    ,NICK     :  req.body.nick
+                                    ,ID_CLAN  :  parseInt(req.body.clan)
+                                    ,ID_CLASSE:  parseInt(req.body.classe)
+                                    ,NIVEL    :  parseInt(req.body.nivel)
+                                    ,PODER    :  parseInt(req.body.poder)
+                                    ,TIERIV   :  parseInt(req.body.TierIV)
+                                    ,TIERIII  :  parseInt(req.body.TierIII)
+                                    ,TIERII   :  parseInt(req.body.TierII)
+                                    ,TIERI    :  parseInt(req.body.TierI)
+                                    ,STATUS   :  1
+                                })
+        
+                                NovaPersonsagem.save().then(() => {
+                                    req.flash("success_msg", "Nova personagem cadastrada com sucesso!")
+                                    res.redirect("Personagens")
+        
+                                }).catch((err) => {
+                                    req.flash("error_msg", "Houve um erro ao criar uma nova personagem, tente novamente")
+                                    res.redirect("Personagens")
+                                })
+                            }
+                        }).catch((err) => {
+                            req.flash("error_msg", "Houve um erro ao criar uma nova personagem, tente novamente")
+                            res.redirect("Personagens")
+                        })
+                    }
+                } else {
+                    Cadastros.Personagens.findAll({
+                        where: {
+                            NICK: req.body.nick
+                            ,ID_USUARIO: req.user.id
+                        }
+                    }).then(function(dados) {          
+                        if(dados.length > 0){
+                            const AlteraPersonagens = ({
+                                ID_USUARIO:  req.user.id
+                                ,TIPO     :  parseInt(req.body.tipo)
+                                ,NICK     :  req.body.nick
+                                ,ID_CLAN  :  parseInt(req.body.clan)
+                                ,ID_CLASSE:  parseInt(req.body.classe)
+                                ,NIVEL    :  parseInt(req.body.nivel)
+                                ,PODER    :  parseInt(req.body.poder)
+                                ,TIERIV   :  parseInt(req.body.TierIV)
+                                ,TIERIII  :  parseInt(req.body.TierIII)
+                                ,TIERII   :  parseInt(req.body.TierII)
+                                ,TIERI    :  parseInt(req.body.TierI)
+                                ,STATUS   :  1
+                            })
+                            
+                            Cadastros.Personagens.update(AlteraPersonagens, { where: { id: dados[0].id } })
+                            .then(function() {
+                                req.flash("success_msg", "Cadastro alterado com sucesso!");
+                                res.redirect("/Personagens");
+                            }).catch(function (erro) {
+                                req.flash("error_msg", "Houve um erro ao salvar a alteração, tente novamente!  " + erro);
+                                res.redirect("/Personagens");
+                            })
+                        } else {
+                            const NovaPersonsagem = new Cadastros.Personagens ({
+                                ID_USUARIO:  req.user.id
+                                ,TIPO     :  parseInt(req.body.tipo)
+                                ,NICK     :  req.body.nick
+                                ,ID_CLAN  :  parseInt(req.body.clan)
+                                ,ID_CLASSE:  parseInt(req.body.classe)
+                                ,NIVEL    :  parseInt(req.body.nivel)
+                                ,PODER    :  parseInt(req.body.poder)
+                                ,TIERIV   :  parseInt(req.body.TierIV)
+                                ,TIERIII  :  parseInt(req.body.TierIII)
+                                ,TIERII   :  parseInt(req.body.TierII)
+                                ,TIERI    :  parseInt(req.body.TierI)
+                                ,STATUS   :  1
+                            })
+    
+                            NovaPersonsagem.save().then(() => {
+                                req.flash("success_msg", "Nova personagem cadastrada com sucesso!")
+                                res.redirect("Personagens")
+    
+                            }).catch((err) => {
+                                req.flash("error_msg", "Houve um erro ao criar uma nova personagem, tente novamente")
+                                res.redirect("Personagens")
+                            })
+                        }
+                    }).catch((err) => {
+                        req.flash("error_msg", "Houve um erro interno")
+                        res.redirect("Personagens")
+                    })
+                }
+            }).catch((err) => {
+                req.flash("error_msg", "Houve um erro interno")
+                res.redirect("Personagens")
+            })
+        }
+    })
+
+    router.post('/Personagens2', AuthUsuarios, (req, res) => {
+        cQry  = " SELECT                                            "
+        cQry += "   PER.id                                          "
+        cQry += "   ,TIPO                                           "
+        cQry += "   ,NICK                                           "
+        cQry += "   ,ID_CLAN                                        "
+        cQry += "   ,CLA.NOME CLAN                                  "
+        cQry += "   ,ID_CLASSE                                      "
+        cQry += "   ,CLAS.NOME CLASSE                               "
+        cQry += "   ,NIVEL                                          "
+        cQry += "   ,PODER                                          "
+        cQry += "   ,TIERI                                          "
+        cQry += "   ,TIERII                                         "
+        cQry += "   ,TIERIII                                        "
+        cQry += "   ,TIERIV                                         "
+        cQry += " FROM                                              "
+        cQry += "   Personagens PER                                 "
+        cQry += "   INNER JOIN USUARIOs USU ON                      "
+        cQry += "      USU.id = ID_USUARIO                          "
+        cQry += "   INNER JOIN Clans CLA ON                         "
+        cQry += "      CLA.id = ID_CLAN                             "
+        cQry += "   INNER JOIN Classes CLAS ON                      "
+        cQry += "      CLAS.id = ID_CLASSE                          "
+        cQry += " WHERE                                             "
+        cQry += "   ID_USUARIO = " + req.user.id + "                "
+
+        BuscaDados(cQry, res, 1)
     })
 
 
 
+    router.post('/Rank', AuthUsuarios, (req, res) => {
+        cQry  = " SET @nItem    = 1.5;                             \n "  
+        cQry += " SET @nLevel   = 6;                               \n "
+        cQry += " SET @nPoder   = 3;                               \n "
+        cQry += " SET @nPesoIV  = 16;                              \n "
+        cQry += " SET @nPesoIII = 8;                               \n "
+        cQry += " SET @nPesoII  = 4;                               \n "
+        cQry += " SET @nPesoI   = 1;                               \n "
+                           
+        cQry += " SELECT                                           \n "
+        //cQry += "   @nLevel    * NIVEL                              "
+        //cQry += "   ,@nPoder   * PODER                              "
+        //cQry += "   ,@nPesoIV  * TIERIV                             "
+        //cQry += "   ,@nPesoIII * TIERIII                            "
+        //cQry += "   ,@nPesoII  * TIERII                             "
+        //cQry += "   ,@nPesoI   * TIERI                              "
+        cQry += "   PER.id                                         \n "
+        cQry += "   ,TIPO                                          \n "
+        cQry += "   ,NICK                                          \n "
+        cQry += "   ,ID_CLAN                                       \n "
+        cQry += "   ,CLA.NOME CLAN                                 \n "
+        cQry += "   ,ID_CLASSE                                     \n "
+        cQry += "   ,CLAS.NOME CLASSE                              \n "
+        cQry += "   ,NIVEL                                         \n "
+        cQry += "   ,PODER                                         \n "
+        cQry += "   ,(@nPesoIV*TIERIV)+(@nPesoIII*TIERIII)+(@nPesoII*TIERII)+(@nPesoI*TIERI) ITEM  \n "
+        cQry += "   ,TIERI                                         \n "
+        cQry += "   ,TIERII                                        \n "
+        cQry += "   ,TIERIII                                       \n "
+        cQry += "   ,TIERIV                                        \n "
+        cQry += "   ,ROUND((@nLevel*NIVEL)+(@nPoder*PODER)+(@nItem*((@nPesoIV*TIERIV)+(@nPesoIII*TIERIII)+(@nPesoII*TIERII)+(@nPesoI*TIERI))), 0) _RANK \n "
+        cQry += " FROM                                             \n "
+        cQry += "   Personagens PER                                \n "
+        cQry += "   INNER JOIN USUARIOs USU ON                     \n "
+        cQry += "      USU.id = ID_USUARIO                         \n "
+        cQry += "   INNER JOIN Clans CLA ON                        \n "
+        cQry += "      CLA.id = ID_CLAN                            \n "
+        cQry += "   INNER JOIN Classes CLAS ON                     \n "
+        cQry += "      CLAS.id = ID_CLASSE                         \n "
+        //cQry += " WHERE                                             "
+        //cQry += "   ID_USUARIO = 4                                  "
+        cQry += " ORDER BY                                         \n "
+        cQry += "   _RANK DESC                                     \n "
+        cQry += "   ,NIVEL                                         \n "
+        cQry += "   ,PODER                                         \n "
+        cQry += "   ,ITEM                                          \n "
+        cQry += "   ,NICK                                          \n "
+        //cQry += " WHERE                                             "
+        //cQry += "   ID_USUARIO = 4                                  "
 
+        BuscaDados(cQry, res, 2)
+
+    })
+        
+        
+    
 module.exports = router;
 
     var cData
@@ -294,3 +549,4 @@ module.exports = router;
         cDataAtual = cDia + '/' + cMes + '/' + cAno4;
         cHora = Date().substring(16, 18)+':'+Date().substring(19, 21)+':'+Date().substring(22, 24)
     }
+    

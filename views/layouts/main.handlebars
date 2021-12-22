@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>MIR4 - AllianceSA - Server 34</title>
+        <title>MIR4 Stat's</title>
 
         <!-- Custom Stylesheet -->
         <link href="/css/style.css" rel="stylesheet">
@@ -99,6 +99,9 @@
                                     {{#if aLogin}}
                                         <label><strong>{{aLogin}}</strong></label>
                                     {{/if}}
+                                    {{#if aID}}
+                                        <input type="text" name="id_user" id="id_user" value="{{aID}}" hidden>
+                                    {{/if}}
                                 </li>
                                 <li class="icons dropdown">
                                     <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
@@ -157,7 +160,25 @@
                                 </a>
                             </li>
 
-                            {{>_Menu}}
+                            <li class="mega-menu mega-menu-sm"> <!-- SUB MENU -->
+                                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                    <i class="fa fa-plus"></i>
+                                    <span class="nav-text">Cadastros</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <!--   {#if aAdminMenu}}  -->
+                                        <li><a href="/Clans">Clans</a></li>
+                                        <li><a href="/Classes">Classes</a></li>
+                                        <li><a href="/Eventos">Eventos</a></li>
+                                    <!-- {/if} -->
+                                    <li><a href="/Personagens">Personagens</a></li>
+
+                                </ul>
+                            </li>
+
+
+
+                            <!--{>_Menu}-->
 
                         </ul>
                     </div>
@@ -195,7 +216,7 @@
                 <pre></pre>
                 <div class="footer">
                     <div class="copyright">
-                        <p>Copyright © 2021 TESTE - Todos os direitos reservados.</p>
+                        <p>Copyright © 2021 https://mir4stats.tk/ - Todos os direitos reservados.</p>
                     </div>
                 </div>
                 <!--**********************************

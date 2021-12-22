@@ -170,9 +170,8 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
         }
     })
 
-
     router.get('/Registrar', (req, res) => {
-        res.render("Usuarios/Registro")
+        res.render("Usuarios/Registrar")
     })
 
     router.post("/Registrar", (req, res) => {
@@ -193,7 +192,7 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
         // Valida erros e adiciona registro
         if(erros.length > 0){
             req.flash("error_msg", "teste")
-            res.render("Usuarios/Registro", {erros: erros})
+            res.render("Usuarios/Registrar", {erros: erros})
         } else {
             //Post.Usuarios.findOne({EMAIL: req.body.email}).then((usuarios) => {
             Post.Usuarios.findAll({
@@ -203,7 +202,7 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
             }).then(function(dados) {          
                 if(dados.length > 0){
                     req.flash("error_msg", "Já existe um conta com esse e-mail")
-                    res.redirect("Registro")
+                    res.redirect("Registrar")
                 } else {
                     var id = crypto.randomBytes(20).toString('hex');                    
                     var nRegra2 = 2
@@ -308,7 +307,7 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
 
                             AlteraChave.SENHA = hash
                             Post.Usuarios.update(AlteraChave, { where: { id: dados2[0].id } }).then(function() {
-                                EnviaCadOK(dados2[0], id) 
+                                EnviaCadOK(dados2[0].dataValues, id) 
         
                                 res.render("Usuarios/APROVCAD",{
                                     APROVCADOK: "OK"
@@ -409,9 +408,9 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
         res.render("Usuarios/Login",{
             aModulo
             ,aRotina
+            ,aLogout: "OK"
         })
     })
-
 
     router.get("/Esqueci",  (req, res) => {
         res.render("Usuarios/Esqueci")
@@ -428,7 +427,7 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
                 })
                 EsqueciEmail.save().then(() => {
                     res.render("Usuarios/Esqueci",{
-                        aEsqueci: aMenu
+                        aEsqueci: "OK"
                     })
                     EnviaEmailEsqueci(EsqueciEmail)
                 }).catch((err) => {
@@ -446,27 +445,27 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
     router.get("/Esqueci/:chave",  (req, res) => {
         var id = crypto.randomBytes(3).toString('hex');
         Post.Esqueci.findAll({ where: { CHAVE: req.params.chave } } ).then((dados) => {   
-            Post.Usuarios.findAll({ where: { Email: dados[0].EMAIL } } ).then((dados2) => {                
-                if(dados.length > 0 && dados2.length > 0 && dados[0].STATUS == '1') {                
+            Post.Usuarios.findAll({ where: { Email: dados[0].dataValues.EMAIL } } ).then((dados2) => {                
+                if(dados.length > 0 && dados2.length > 0 && dados[0].dataValues.STATUS == '1') {                
                     const AlteraSenha = ({
-                        Senha: id
+                        SENHA: id
                     })
                     const AlteraStatus = ({
                         STATUS: 2
                     })
                     bcrypt.genSalt(10, (erro, salt) => {
-                        bcrypt.hash(AlteraSenha.Senha, salt, (erro, hash) => {
+                        bcrypt.hash(AlteraSenha.SENHA, salt, (erro, hash) => {
                             if(erro){
                                 req.flash("erros_msg", "Houve um erro ao salvar o usuário")
                                 res.redirect("Esqueci")
                             }
-                            AlteraSenha.Senha = hash
-                            Post.Usuarios.update(AlteraSenha, { where: { id: dados2[0].id } }).then(function() {
-                                Post.Esqueci.update(AlteraStatus, { where: { EMAIL: dados[0].EMAIL } }).then(function() {
+                            AlteraSenha.SENHA = hash
+                            Post.Usuarios.update(AlteraSenha, { where: { id: dados2[0].dataValues.id } }).then(function() {
+                                Post.Esqueci.update(AlteraStatus, { where: { EMAIL: dados[0].dataValues.EMAIL } }).then(function() {
                                     res.render("Usuarios/Esqueci",{
-                                        aEsqueciOK: aMenu
+                                        aEsqueciOK: "OK"
                                     })
-                                    EnviaEmailAlterada(dados2, id) 
+                                    EnviaEmailAlterada(dados2[0].dataValues, id) 
                                 }).catch(function (erro) {
                                     req.flash("error_msg", "Houve um erro ao salvar a alteração, tente novamente!" + erro);
                                     res.redirect("Esqueci");
@@ -479,7 +478,7 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
                     })
                 } else {
                     res.render("Usuarios/Esqueci",{
-                        aEsqueciNC: aMenu
+                        aEsqueciNC: "OK"
                         ,aRotina
                     })
                 }
@@ -490,9 +489,11 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
 
     //PROFILES
         router.get("/Profiles", BuscaReal, (req, res) => {
-            Post.Usuarios.findAll({ where: { Email: res.locals.user.Email } } ).then((usuarios) => {   
+            Post.Usuarios.findAll({ where: { EMAIL: res.locals.user.dataValues.EMAIL } } ).then((usuarios) => {   
+
+                var aUsuarios = [ usuarios[0]._previousDataValues ]
                 res.render("Usuarios/Profiles/index", {
-                    aProfiles: usuarios
+                    aProfiles: aUsuarios
                     ,aRotina
                 })
             })
@@ -502,8 +503,12 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
         router.post("/Profiles", BuscaReal, (req, res) => {
             var erros = [];
 
-            if(!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null){
-                erros.push({texto: "Nome Inválido"})
+            if(!req.body.discord || typeof req.body.discord == undefined || req.body.discord == null){
+                erros.push({texto: "Discord Inválido"})
+            }
+
+            if(!req.body.fone || typeof req.body.fone == undefined || req.body.fone == null){
+                erros.push({texto: "Fone Inválido"})
             }
 
             if(req.body.senha != '' || req.body.senha2 != '') {
@@ -528,27 +533,28 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
                         id: req.body.id
                     }
                 }).then(function(dados) {
+                    var aUsuarios = [ dados[0]._previousDataValues ]
                     res.render("Usuarios/Profiles", { 
                         erros: erros 
-                        ,aProfiles: dados
+                        ,aProfiles: aUsuarios
                         ,aRotina
                     })
                 })
             } else {
                 if(req.body.senha != '') {
                     const AlteraUsuario = ({
-                        Nome: req.body.nome
-                        ,Senha: req.body.senha
-                        ,UserERP: req.body.UserERP
+                        DISCORD: req.body.discord
+                        ,FONE  : req.body.fone
+                        ,SENHA : req.body.senha
                     })
                     
                     bcrypt.genSalt(10, (erro, salt) => {
-                        bcrypt.hash(AlteraUsuario.Senha, salt, (erro, hash) => {
+                        bcrypt.hash(AlteraUsuario.SENHA, salt, (erro, hash) => {
                             if(erro){
                                 req.flash("erros_msg", "Houve um erro durante o salvamento do usuário")
                                 res.redirect("/Usuarios/Profiles")
                             }
-                            AlteraUsuario.Senha = hash
+                            AlteraUsuario.SENHA = hash
                             Post.Usuarios.update(AlteraUsuario, { where: { id: req.body.id } })
                             .then(function() {
                                 req.flash("success_msg", "Cadastro alterado com sucesso!");
@@ -562,8 +568,8 @@ const {BuscaReal}   = require("../helpers/BuscaReal")
                     })
                 } else {
                     const AlteraUsuario = ({
-                        Nome: req.body.nome
-                        ,UserERP: req.body.UserERP
+                        DISCORD: req.body.discord
+                        ,FONE  : req.body.fone
                     })
 
                     Post.Usuarios.update(AlteraUsuario, { where: { id: req.body.id } })
@@ -586,13 +592,13 @@ function EnviaEmail(params, id2) {
     chtml =  ' <div>                                                                                                                                                '
     chtml += '   <h2>Bem Vindo(a) ao Portal AllianceSA </h3>                                                                                                        '
     chtml += '   <pre>Recebemos seu pedido de registro de conta, favor confirmar seu e-mail. </pre>                                                                 '
-    chtml += '   <pre><strong>Endereço: </strong><a href="https://alliancesa.herokuapp.com/">https://alliancesa.herokuapp.com/</a></pre>                            '
-    chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="https://alliancesa.herokuapp.com/Usuarios/ValidaEmail/' + id2 + '" a>aqui</a></strong></pre>    '
+    chtml += '   <pre><strong>Endereço: </strong><a href="https://mir4stats.tk/">https://mir4stats.tk/</a></pre>                            '
+    chtml += '   <pre>Confirme seu e-mail clicando <strong><a href="https://mir4stats.tk/Usuarios/ValidaEmail/' + id2 + '" a>aqui</a></strong></pre>    '
     chtml += ' </div>                                                                                                                                               '
 
     const mailOptions = {
         from: "alliancesa34@gmail.com"
-        ,to: "'" + params.email + "'"
+        ,to: params.email
         ,bcc: 'tdrgoblin@gmail.com'
         ,subject: 'Bem Vindo(a) ao Portal AllianceSA - Validação de e-mail'
         //text: 'Bem fácil, não? ;)'
@@ -618,7 +624,7 @@ function EnviaAdmin(params, id2) {
     chtml += '   <pre><strong>DISCORD: </strong> ' + params.DISCORD + '</pre>                                                                               '
     chtml += '   <pre><strong>DISCORD: </strong> ' + params.FONE + '</pre>                                                                                  '
     chtml += '   <pre></pre>                                                                                                                                '
-    chtml += '   <pre>Clique <a href="https://alliancesa.herokuapp.com/Usuarios/APROVCAD/' + id2 + '" a>aqui</a></strong> para liberar o cadastro</pre>     '
+    chtml += '   <pre>Clique <a href="https://mir4stats.tk/Usuarios/APROVCAD/' + id2 + '" a>aqui</a></strong> para liberar o cadastro</pre>     '
     chtml += ' </div>                                                                                                                                       '
 
     const mailOptions = {
@@ -645,7 +651,7 @@ function EnviaCadOK(params, cSenha) {
     chtml += '   <h2>Cadastro Liberado Portal AllianceSA </h3>                                                                                     '
     chtml += '   <pre>Novo cadatro liberado para uso....... bla bla bla bla. </pre>                                                                '
     chtml += '   <pre></pre>                                                                                                                       '
-    chtml += '   <pre><strong>Endereço: </strong><a href="https://alliancesa.herokuapp.com/">https://alliancesa.herokuapp.com/</a></pre>           '
+    chtml += '   <pre><strong>Endereço: </strong><a href="https://mir4stats.tk/">https://mir4stats.tk/</a></pre>           '
     chtml += '   <pre></pre>                                                                                                                       '
     chtml += '   <pre><strong>E-Mail: </strong> ' + params.EMAIL   + '</pre>                                                                       '
     chtml += '   <pre><strong>Senha : </strong> ' + cSenha         + '</pre>                                                                       '
@@ -654,7 +660,7 @@ function EnviaCadOK(params, cSenha) {
 
     const mailOptions = {
         from: "alliancesa34@gmail.com"
-        //,to:  "'" + params.email + "'"
+        ,to:  params.EMAIL
         ,bcc: 'tdrgoblin@gmail.com ' //;tiagodalua@gmail.com'
         ,subject: 'Portal AllianceSA - Cadastro Liberado'
         //text: 'Bem fácil, não? ;)'
@@ -677,14 +683,14 @@ function EnviaEmailEsqueci(params) {
     chtml =  ' <div>                                                                                 '
     chtml += '   <h2>Portal AllianceSA</h3>                                                            '
     chtml += '   <pre>Foi realizado uma solicitação de redefinição de senha. </pre>                  '
-    chtml += '   <pre>Clique <strong><a href="https://alliancesa.herokuapp.com/Usuarios/Esqueci/' + params.CHAVE + '">aqui</a></strong> para redifinir a nova senha</pre> '
+    chtml += '   <pre>Clique <strong><a href="https://mir4stats.tk/Usuarios/Esqueci/' + params.CHAVE + '">aqui</a></strong> para redifinir a nova senha</pre> '
     chtml += '   <pre><strong>E-Mail: </strong> ' + params.EMAIL + '</pre>                           '
     chtml += '   <pre>Caso não reconheça essa solicitação favor desconsiderar esse e-mail. </pre>    '
     chtml += ' </div>                                                                                '
 
     const mailOptions = {
         from: "alliancesa34@gmail.com"
-        ,to: "'" + params.EMAIL + "'"
+        ,to:  params.EMAIL
         ,bcc: 'tdrgoblin@gmail.com ' //;tiagodalua@gmail.com'
         ,subject: 'Portal AllianceSA - Redefinição de senha'
         //text: 'Bem fácil, não? ;)'
@@ -703,16 +709,16 @@ function EnviaEmailEsqueci(params) {
 function EnviaEmailAlterada(params, id) {
 
     chtml =  ' <div>                                                                                                             '
-    chtml += '   <h2>' + params[0].Nome + ' a senha do Portal AllianceSA foi redefinida com sucesso.</h3>                             '
+    chtml += '   <h2>' + params.EMAIL + ' a senha do Portal AllianceSA foi redefinida com sucesso.</h3>                          '
     chtml += '   <pre>Para acessar o portal você deverá utilizar as seguintes credenciais: </pre>                                '
-    chtml += '   <pre><strong>Endereço: </strong><a href="https://alliancesa.herokuapp.com">https://alliancesa.herokuapp.com</a></pre>       '
-    chtml += '   <pre><strong>Usuário: </strong>' + params[0].Email + '</pre>                                                       '
-    chtml += '   <pre><strong>Senha: </strong>' + id + '</pre>                                                         '
+    chtml += '   <pre><strong>Endereço: </strong><a href="https://mir4stats.tk">https://mir4stats.tk</a></pre>                   '
+    chtml += '   <pre><strong>Usuário: </strong>' + params.EMAIL + '</pre>                                                       '
+    chtml += '   <pre><strong>Senha: </strong>' + id + '</pre>                                                                   '
     chtml += ' </div>                                                                                                            '    
 
     const mailOptions = {
         from: "alliancesa34@gmail.com"
-        ,to: "'" + params[0].Email + "'"
+        ,to:  params.EMAIL
         ,bcc: 'tdrgoblin@gmail.com ' //;tiagodalua@gmail.com'
         ,subject: 'Portal AllianceSA - Senha Alterada'
         //text: 'Bem fácil, não? ;)'

@@ -4,7 +4,7 @@
             <h4 class="card-title">Personagens</h4>
             <p class="text-muted"><code>Cadastre aqui todos os seus Personagens</code>
             </p>
-            <div id="personagens" class="accordion">
+            <div id="personagens" class="accordion container">
                 <div id="dTabela"></div>
             </div>
         </div>
@@ -13,42 +13,32 @@
         <form action="" method="post">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-2"><b>Tipo Conta</b></div>
-                    <div class="col-1">
-                        <label class="css-control css-control-primary css-checkbox" for="_1">
-                            <input class="form-check-input" type="radio" id="_1" name="tipo" checked> 
-                            <pre> 1ª</pre>
-                        </label>   
+                    <div class="col-2">     
+                        <label for="tipo"><b>Tipo Conta</b></label>
                     </div>
-                    <div class="col-1">
-                        <label class="css-control css-control-primary css-checkbox" for="_2">
-                            <input class="form-check-input" type="radio" id="_2" name="tipo"> 
-                            <pre> 2ª</pre>
-                        </label> 
-                    </div>
-                    <div class="col-1">
-                        <label class="css-control css-control-primary css-checkbox" for="_3">
-                            <input class="form-check-input" type="radio" id="_3" name="tipo"> 
-                            <pre> 3ª</pre>
-                        </label> 
-                    </div>
-                    <div class="col-1">
-                        <label class="css-control css-control-primary css-checkbox" for="_4">
-                            <input class="form-check-input" type="radio" id="_4" name="tipo"> 
-                            <pre> 4ª</pre>
-                        </label> 
-                    </div>
-                    <div class="col-1">
-                        <label class="css-control css-control-primary css-checkbox" for="_5">
-                            <input class="form-check-input" type="radio" id="_5" name="tipo"> 
-                            <pre> 5ª</pre>
-                        </label> 
-                    </div>
-                    <div class="col-1">
-                        <label class="css-control css-control-primary css-checkbox" for="_6">
-                            <input class="form-check-input" type="radio" id="_6" name="tipo"> 
-                            <pre> 6ª</pre>
-                        </label> 
+                    <div class="col-3">
+                         <select name="tipo" class="form-control" required>
+                            <option value="1">1ª</option>
+                            <option value="2">2ª</option>
+                            <option value="3">3ª</option>
+                            <option value="4">4ª</option>
+                            <option value="5">5ª</option>
+                            <option value="6">6ª</option>
+                            <option value="7">7ª</option>
+                            <option value="8">8ª</option>
+                            <option value="9">9ª</option>
+                            <option value="10">10ª</option>
+                            <option value="11">11ª</option>
+                            <option value="12">12ª</option>
+                            <option value="13">13ª</option>
+                            <option value="14">14ª</option>
+                            <option value="15">15ª</option>
+                            <option value="16">16ª</option>
+                            <option value="17">17ª</option>
+                            <option value="18">18ª</option>
+                            <option value="19">19ª</option>
+                            <option value="20">20ª</option>
+                        </select>
                     </div>
                 </div>
                 <pre></pre>
@@ -57,7 +47,7 @@
                         <label for="classe"><b>Clan</b></label>
                     </div>
                     <div class="col-3 form-group">
-                        <select  name="clan" class="form-control" required>
+                        <select name="clan" class="form-control" required>
                             <option></option>
                             
                             {{#each aClans}}
@@ -109,11 +99,101 @@
                         <input type="text" id="poder" name="poder" class="form-control" required  placeholder="Ex.: 72.652  = 72">
                     </div>
                 </div>
+                <pre>
+
+                </pre>
+                <div class="accordion">
+                    
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <b>Qualidade dos Itens Raros</b>
+                        </h5>
+                    </div>
+                    <pre></pre>
+                    <p class="text-muted"><code>* Atenção, a soma de todos os itens deve ser 8.</code>
+                    <pre></pre>
+                    <div class="card-body">                       
+                        <div class="row">
+                            <div class="col-1">     
+                                <label for="TierIV"><b>Itens Raros Tier IV</b></label>
+                            </div>
+                            <div class="col-3">     
+                                <select id="TierIV" name="TierIV" class="form-control" onchange="SomaTier()" required>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">     
+                                <label for="TierIII"><b>Itens Raros Tier III</b></label>
+                            </div>
+                            <div class="col-3">     
+                                <select id="TierIII" name="TierIII" class="form-control" onchange="SomaTier()" required>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">     
+                                <label for="TierII"><b>Itens Raros Tier II</b></label>
+                            </div>
+                            <div class="col-3">     
+                                <select id="TierII" name="TierII" class="form-control" onchange="SomaTier()" required>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                        </div>             
+                        <div class="row">
+                            <div class="col-1">     
+                                <label for="TierI"><b>Itens Raros Tier I</b></label>
+                            </div>
+                            <div class="col-3">     
+                                <select id="TierI" name="TierI" class="form-control" onchange="SomaTier()" required>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                        </div>                                             
+                    </div>
+                    
+                </div>
+                <pre></pre>
 
                 </br>
                 <p></p>
                 <div align="right">
-                    <button type="submit" class="btn btn-success">Atualizar</button>
+                    <button type="submit" id="bgrava" class="btn btn-success">Gravar</button>
                 </div>
             </div>
         </form>
@@ -128,19 +208,26 @@
     function CarregaTabela() {
         aDados = new google.visualization.DataTable();
         
-        aDados.addColumn('string', 'Nick');         //00
-        aDados.addColumn('string', "Classe");       //01
-        aDados.addColumn('number', "Nível");        //02     
-        aDados.addColumn('number', "Poder");        //03
+        aDados.addColumn('number', 'Tipo Conta');   //00
+        aDados.addColumn('number', 'Nick');         //01
+        aDados.addColumn('number', "Clan");         //02
+        aDados.addColumn('number', "Classe");       //03
+        aDados.addColumn('number', "Nível");        //04     
+        aDados.addColumn('number', "Poder");        //05
+        aDados.addColumn('number', "TIER IV")       //06
+        aDados.addColumn('number', "TIER III")      //07
+        aDados.addColumn('number', "TIER II")       //08
+        aDados.addColumn('number', "TIER I")        //09
+        aDados.addColumn('string', "")              //10
 
         var cssClassNames = {
-            'headerRow': 'default-font bold-font a center-text fundo-table-background-padrao '
+            'headerRow': 'large-font bold-font a center-text fundo-table-background-padrao '
             ,'tableRow': 'false'
             ,'oddTableRow': ''
             //,'selectedTableRow': 'orange-background large-font'
             ,'hoverTableRow': 'false'
             ,'headerCell': ''
-            ,'tableCell': 'default-font'
+            ,'tableCell': 'large-font'
             ,'rowNumberCell': 'underline-blue-font'
         }
 
@@ -160,21 +247,13 @@
     function CarregaDados() {
          // Carrega DIV de carregamento
         $('#preloader').fadeIn(500);
-        
-        Loading(Carregando, 10)
 
-        BuscaDados('/ERP/Comercial/Relatorios/BuscaNotas', [
+        BuscaDados('Personagens2', [
             1
-            ,_cEmpresas.name
-            ,Data.value
         ])
         
-        Loading(Carregando, 20)
-        
         //Carrega API
-        request.done(dados => {  
-            Loading(Carregando, 30)
-            
+        request.done(dados => {            
             if(aDados.getNumberOfRows() > 0)
                 aDados.removeRows(0, aDados.getNumberOfRows())
         })
@@ -183,17 +262,23 @@
         request.then(dados => {  
             aDados.addRows(dados.length)
 
-            Loading(Carregando, 40)
-            
             for(i=0; i < dados.length; i++) {
-                aDados.setCell(i,  0, dados[i].DATA)
-                aDados.setCell(i,  1, dados[i].NOTA + '/' + dados[i].NOTA)
-                aDados.setCell(i,  2, dados[i].COD_CLIENTE)
+                var cEdit    = ' <div align="center"> <i class="fa fa-pencil-square-o" name="_dados" onclick="CarDados(`' + i + '`)"></i> </div>'
+
+                aDados.setCell(i,  0, dados[i].TIPO     , dados[i].TIPO.toString() + 'ª', { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i,  1, dados[i].id       , dados[i].NICK                 , { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i,  2, dados[i].ID_CLAN  , dados[i].CLAN                 , { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i,  3, dados[i].ID_CLASSE, dados[i].CLASSE               , { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i,  4, dados[i].NIVEL    , dados[i].NIVEL.toString()     , { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i,  5, dados[i].PODER    , dados[i].PODER.toString()     , { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i,  6, dados[i].TIERIV   , dados[i].TIERIV.toString()    , { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i,  7, dados[i].TIERIII  , dados[i].TIERIII.toString()   , { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i,  8, dados[i].TIERII   , dados[i].TIERII.toString()    , { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i,  9, dados[i].TIERI    , dados[i].TIERI.toString()     , { style:' font-weight:bold; text-align:center' } )
+                aDados.setCell(i, 10, ''                , cEdit                         , { style:' font-weight:bold; text-align:center; background-color: #CCFF99' } )
             }
 
             cDados.draw(aDados, options); 
-
-            Loading(Carregando, 100)
             
             $('.google-visualization-table-table').DataTable({
                 "paging":   false
@@ -213,9 +298,42 @@
         })
     }
 
+    function SomaTier(){
+        if(parseInt(TierIV.value)+parseInt(TierIII.value)+parseInt(TierII.value)+parseInt(TierI.value) != 8){
+            TierIV.setAttribute("class", "form-control alert-danger")
+            TierIII.setAttribute("class", "form-control alert-danger")
+            TierII.setAttribute("class", "form-control alert-danger")
+            TierI.setAttribute("class", "form-control alert-danger")
+            bgrava.disabled = true
+        } else {
+            TierIV.setAttribute("class", "form-control")
+            TierIII.setAttribute("class", "form-control")
+            TierII.setAttribute("class", "form-control")
+            TierI.setAttribute("class", "form-control")
+            bgrava.disabled = false
+        }
+
+    }
+
+    function CarDados(nLinha){
+        document.getElementsByName("tipo")[0].value    = aDados.Wf[nLinha].c[0].v  //01
+        document.getElementsByName("nick")[0].value    = aDados.Wf[nLinha].c[1].f  //02
+        document.getElementsByName("clan")[0].value    = aDados.Wf[nLinha].c[2].v  //03
+        document.getElementsByName("classe")[0].value  = aDados.Wf[nLinha].c[3].v  //04
+        document.getElementsByName("nivel")[0].value   = aDados.Wf[nLinha].c[4].v  //05
+        document.getElementsByName("poder")[0].value   = aDados.Wf[nLinha].c[5].v  //06
+        document.getElementsByName("TierIV")[0].value  = aDados.Wf[nLinha].c[6].v  //07
+        document.getElementsByName("TierIII")[0].value = aDados.Wf[nLinha].c[7].v  //08
+        document.getElementsByName("TierII")[0].value  = aDados.Wf[nLinha].c[8].v  //09
+        document.getElementsByName("TierI")[0].value   = aDados.Wf[nLinha].c[9].v  //10
+        
+        SomaTier()
+    }
 
     setTimeout(function() {
-    //    CarregaDados()
+        CarregaDados()
+        SomaTier()
     }, 1000)
 
 </script>
+
